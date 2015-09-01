@@ -11,7 +11,13 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
+    
+    lazy var window: UIWindow? = {
+        let win = UIWindow(frame: UIScreen.mainScreen().bounds)
+        win.backgroundColor = UIColor.whiteColor()
+        win.rootViewController = UINavigationController(rootViewController: ViewController())
+        return win
+    }()
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
