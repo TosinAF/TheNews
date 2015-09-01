@@ -10,7 +10,6 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    
     lazy var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar(frame: CGRectZero)
         return navigationBar

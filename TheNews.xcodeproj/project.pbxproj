@@ -11,6 +11,8 @@
 		4E8585251B62980C00E083F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E8585241B62980C00E083F6 /* Assets.xcassets */; };
 		4EEB5C091B95513300853F7C /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEB5C081B95513300853F7C /* FeedViewController.swift */; };
 		4EEB5C0B1B95513A00853F7C /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEB5C0A1B95513A00853F7C /* ColorPalette.swift */; };
+		4EEB5C131B9556BD00853F7C /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EEB5C111B9556BD00853F7C /* Montserrat-Bold.ttf */; };
+		4EEB5C141B9556BD00853F7C /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EEB5C121B9556BD00853F7C /* Montserrat-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		4E8585291B62980C00E083F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4EEB5C081B95513300853F7C /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = Controllers/FeedViewController.swift; sourceTree = "<group>"; };
 		4EEB5C0A1B95513A00853F7C /* ColorPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorPalette.swift; path = Utility/ColorPalette.swift; sourceTree = "<group>"; };
+		4EEB5C111B9556BD00853F7C /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "Utility/Fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		4EEB5C121B9556BD00853F7C /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "Utility/Fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,9 +92,19 @@
 		4EEB5C051B95502100853F7C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				4EEB5C0C1B95560600853F7C /* Fonts */,
 				4EEB5C0A1B95513A00853F7C /* ColorPalette.swift */,
 			);
 			name = Utility;
+			sourceTree = "<group>";
+		};
+		4EEB5C0C1B95560600853F7C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				4EEB5C111B9556BD00853F7C /* Montserrat-Bold.ttf */,
+				4EEB5C121B9556BD00853F7C /* Montserrat-Regular.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,6 +165,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EEB5C141B9556BD00853F7C /* Montserrat-Regular.ttf in Resources */,
+				4EEB5C131B9556BD00853F7C /* Montserrat-Bold.ttf in Resources */,
 				4E8585251B62980C00E083F6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
