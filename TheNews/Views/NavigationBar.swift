@@ -12,6 +12,13 @@ import TZStackView
 import Cartography
 import JTHamburgerButton
 
+private let kButtonSpacing: CGFloat = 25.0
+private let kMenuButtonSize: CGFloat = 40.0
+private let kIndicatorViewSize: CGFloat = 5.0
+private let kTitleViewCenterXOffset: CGFloat = 12.0
+private let kTitleViewCenterYOffset: CGFloat = 10.0
+
+
 class NavigationBar: UINavigationBar {
     
     // MARK: Properties
@@ -36,7 +43,7 @@ class NavigationBar: UINavigationBar {
         
         let menuBarButton = UIBarButtonItem(customView: self.menuToggle)
         let negativeSpacer = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: "")
-        negativeSpacer.width = -10
+        negativeSpacer.width = -5
         
         let navigationItem = UINavigationItem(title: "")
         navigationItem.titleView = self.titleView
@@ -45,7 +52,8 @@ class NavigationBar: UINavigationBar {
     }()
     
     lazy var menuToggle: JTHamburgerButton = {
-        let toggle = JTHamburgerButton(frame: CGRectMake(0, 0, 40, 40))
+        let frame = CGRectMake(0, 0, kMenuButtonSize, kMenuButtonSize)
+        let toggle = JTHamburgerButton(frame: frame)
         toggle.lineWidth = 25.0
         toggle.lineHeight = 1.0
         toggle.lineSpacing = 7.0
@@ -59,13 +67,13 @@ class NavigationBar: UINavigationBar {
         stackView.distribution = .EqualSpacing
         stackView.alignment = .Center
         stackView.axis = .Horizontal
-        stackView.spacing = 25
+        stackView.spacing = kButtonSpacing
         return stackView
     }()
     
     lazy var indicatorView: UIView = {
         let indicatorView = UIView()
-        indicatorView.layer.cornerRadius = 2.5
+        indicatorView.layer.cornerRadius = kIndicatorViewSize / 2
         indicatorView.backgroundColor = .whiteColor()
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
         return indicatorView
@@ -95,14 +103,14 @@ class NavigationBar: UINavigationBar {
     func setupConstraints() {
         
         layout(titleView) { stackView in
-            stackView.centerX == stackView.superview!.centerX + 12
-            stackView.centerY == stackView.superview!.centerY + 10
+            stackView.centerX == stackView.superview!.centerX + kTitleViewCenterXOffset
+            stackView.centerY == stackView.superview!.centerY + kTitleViewCenterYOffset
         }
         
         let offset = buttons[selectedIndex].center.x
         layout(indicatorView, buttons[selectedIndex], titleView) { indicatorView, button, titleView in
-            indicatorView.width == 5.0
-            indicatorView.height == 5.0
+            indicatorView.width == kIndicatorViewSize
+            indicatorView.height == kIndicatorViewSize
             indicatorView.bottom == button.bottom
             indicatorViewCenterXConstraint = (indicatorView.centerX == titleView.left + offset)
         }
