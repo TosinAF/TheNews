@@ -10,18 +10,17 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     
     lazy var window: UIWindow? = {
         let win = UIWindow(frame: UIScreen.mainScreen().bounds)
         win.backgroundColor = UIColor.whiteColor()
-        win.rootViewController = UINavigationController(rootViewController: ViewController())
+        win.rootViewController = UINavigationController(rootViewController: FeedViewController())
         return win
     }()
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        UIApplication.sharedApplication().statusBarStyle = .LightContent;
+        window?.makeKeyAndVisible()
         return true
     }
 

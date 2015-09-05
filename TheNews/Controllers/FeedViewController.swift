@@ -7,21 +7,38 @@
 //
 
 import UIKit
+import Cartography
+import JTHamburgerButton
 
 class FeedViewController: UIViewController {
     
-    lazy var navigationBar: UINavigationBar = {
-        let navigationBar = UINavigationBar(frame: CGRectZero)
+    lazy var navigationBar: NavigationBar = {
+        let navigationBar = NavigationBar(titles: ["TOP", "NEW", "SHOW", "ASK"])
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        navigationBar.barTintColor = ColorPalette.HN.NavBar
         return navigationBar
     }()
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        view.addSubview(navigationBar)
+        addConstriants()
+    }
+    
+    func addConstriants() {
+    
+        layout(navigationBar) { navigationBar in
+            navigationBar.top == navigationBar.superview!.top
+            navigationBar.left == navigationBar.superview!.left
+            navigationBar.width == navigationBar.superview!.width
+            navigationBar.height == 64.0
+        }
+    
     }
 }
 
