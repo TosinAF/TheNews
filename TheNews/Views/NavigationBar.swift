@@ -43,7 +43,7 @@ class NavigationBar: UINavigationBar {
         
         let menuBarButton = UIBarButtonItem(customView: self.menuToggle)
         let negativeSpacer = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: "")
-        negativeSpacer.width = -5
+        negativeSpacer.width = self.frame.width == 320.0 ? -5 : -10
         
         let navigationItem = UINavigationItem(title: "")
         navigationItem.titleView = self.titleView
@@ -102,9 +102,9 @@ class NavigationBar: UINavigationBar {
     
     func setupConstraints() {
         
-        layout(titleView) { stackView in
-            stackView.centerX == stackView.superview!.centerX + kTitleViewCenterXOffset
-            stackView.centerY == stackView.superview!.centerY + kTitleViewCenterYOffset
+        layout(titleView) { titleView in
+            titleView.centerX == titleView.superview!.centerX + kTitleViewCenterXOffset
+            titleView.centerY == titleView.superview!.centerY + kTitleViewCenterYOffset
         }
         
         let offset = buttons[selectedIndex].center.x
