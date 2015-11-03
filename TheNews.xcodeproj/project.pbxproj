@@ -7,21 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E40FBA01BE8637800AD0F6B /* Extension+TZStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FB9F1BE8637800AD0F6B /* Extension+TZStackView.swift */; };
+		4E40FBA21BE8661300AD0F6B /* CommentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FBA11BE8661300AD0F6B /* CommentButton.swift */; };
 		4E85851E1B62980B00E083F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E85851D1B62980B00E083F6 /* AppDelegate.swift */; };
 		4E8585251B62980C00E083F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E8585241B62980C00E083F6 /* Assets.xcassets */; };
-		4E925E651B9B77F5003D92C5 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E925E641B9B77F5003D92C5 /* FeedTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
-		4EC20CBC1B99587E00EDB4F9 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC20CBB1B99587E00EDB4F9 /* NavigationBar.swift */; settings = {ASSET_TAGS = (); }; };
+		4E925E651B9B77F5003D92C5 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E925E641B9B77F5003D92C5 /* FeedTableViewCell.swift */; };
+		4EC20CBC1B99587E00EDB4F9 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC20CBB1B99587E00EDB4F9 /* NavigationBar.swift */; };
 		4EEB5C091B95513300853F7C /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEB5C081B95513300853F7C /* FeedViewController.swift */; };
 		4EEB5C0B1B95513A00853F7C /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEB5C0A1B95513A00853F7C /* ColorPalette.swift */; };
 		4EEB5C131B9556BD00853F7C /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EEB5C111B9556BD00853F7C /* Montserrat-Bold.ttf */; };
 		4EEB5C141B9556BD00853F7C /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EEB5C121B9556BD00853F7C /* Montserrat-Regular.ttf */; };
-		690E22202851C2442A9D8C99 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25EF89090F1A703B0491541A /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		690E22202851C2442A9D8C99 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25EF89090F1A703B0491541A /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1506EAD11390A9FAEDFEDBBD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		1F061C54C4C3F6AAE5D2D241 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		25EF89090F1A703B0491541A /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E40FB9F1BE8637800AD0F6B /* Extension+TZStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Extension+TZStackView.swift"; path = "Utility/Extension+TZStackView.swift"; sourceTree = "<group>"; };
+		4E40FBA11BE8661300AD0F6B /* CommentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentButton.swift; path = Views/CommentButton.swift; sourceTree = "<group>"; };
 		4E85851A1B62980B00E083F6 /* TheNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E85851D1B62980B00E083F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E8585241B62980C00E083F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 			children = (
 				4EC20CBB1B99587E00EDB4F9 /* NavigationBar.swift */,
 				4E925E641B9B77F5003D92C5 /* FeedTableViewCell.swift */,
+				4E40FBA11BE8661300AD0F6B /* CommentButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -124,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				4EEB5C0A1B95513A00853F7C /* ColorPalette.swift */,
+				4E40FB9F1BE8637800AD0F6B /* Extension+TZStackView.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -269,9 +275,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EC20CBC1B99587E00EDB4F9 /* NavigationBar.swift in Sources */,
+				4E40FBA01BE8637800AD0F6B /* Extension+TZStackView.swift in Sources */,
 				4EEB5C091B95513300853F7C /* FeedViewController.swift in Sources */,
 				4E925E651B9B77F5003D92C5 /* FeedTableViewCell.swift in Sources */,
 				4E85851E1B62980B00E083F6 /* AppDelegate.swift in Sources */,
+				4E40FBA21BE8661300AD0F6B /* CommentButton.swift in Sources */,
 				4EEB5C0B1B95513A00853F7C /* ColorPalette.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

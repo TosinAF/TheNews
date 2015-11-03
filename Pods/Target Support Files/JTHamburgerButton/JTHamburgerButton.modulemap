@@ -1,0 +1,6 @@
+framework module JTHamburgerButton {
+  umbrella header "JTHamburgerButton-umbrella.h"
+
+  export *
+  module * { export * }
+}

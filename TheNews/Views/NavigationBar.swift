@@ -18,7 +18,6 @@ private let kIndicatorViewSize: CGFloat = 5.0
 private let kTitleViewCenterXOffset: CGFloat = 12.0
 private let kTitleViewCenterYOffset: CGFloat = 10.0
 
-
 class NavigationBar: UINavigationBar {
     
     // MARK: Properties
@@ -54,9 +53,7 @@ class NavigationBar: UINavigationBar {
     lazy var menuToggle: JTHamburgerButton = {
         let frame = CGRectMake(0, 0, kMenuButtonSize, kMenuButtonSize)
         let toggle = JTHamburgerButton(frame: frame)
-        toggle.lineWidth = 25.0
-        toggle.lineHeight = 1.0
-        toggle.lineSpacing = 7.0
+        toggle.configure(lineWidth: 25.0, lineHeight: 1.0, lineSpacing: 7.0)
         toggle.lineColor = .whiteColor()
         toggle.updateAppearance()
         return toggle
@@ -64,10 +61,7 @@ class NavigationBar: UINavigationBar {
     
     lazy var titleView: TZStackView = {
         let stackView = TZStackView(arrangedSubviews: self.buttons)
-        stackView.distribution = .EqualSpacing
-        stackView.alignment = .Center
-        stackView.axis = .Horizontal
-        stackView.spacing = kButtonSpacing
+        stackView.configure(distributon: .EqualSpacing, alignment: .Center, axis: .Horizontal, spacing: kButtonSpacing)
         return stackView
     }()
     
@@ -162,6 +156,17 @@ private class ButtonFactory {
         button.setTitleColor(UIColor(white: 1.0, alpha: 0.6), forState: .Normal)
         button.setTitleColor(UIColor(white: 1.0, alpha: 1.0), forState: .Selected)
         return button
+    }
+}
+
+// MARK: - JTHamburgerButton Extension
+
+private extension JTHamburgerButton {
+    
+    func configure(lineWidth lineWidth: CGFloat, lineHeight: CGFloat, lineSpacing: CGFloat) {
+        self.lineWidth = lineWidth
+        self.lineHeight = lineHeight
+        self.lineSpacing = lineSpacing
     }
 }
 

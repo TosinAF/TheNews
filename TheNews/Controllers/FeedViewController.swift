@@ -82,7 +82,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
             cell.titleLabel.text = "Academics are being hoodwinked into writing books nobody can buy"
         }
         
-        cell.detailLabel.text = "49 points by Andrew W. •  "
+        cell.detailLabel.text = "49 points by Andrew W."
         return cell
     }
 }
