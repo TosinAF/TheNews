@@ -14,6 +14,17 @@ private let kNavigationBarHeight: CGFloat = 64.0
 
 enum FeedType: Int {
     case PH = 0, DN, HN
+    
+    var filters: [String] {
+        switch(self) {
+        case .PH:
+            return ["TOP", "RECENT"]
+        case .DN:
+            return ["TOP", "RECENT"]
+        case .HN:
+            return ["TOP", "NEW", "SHOW", "ASK"]
+        }
+    }
 }
 
 protocol Feed {
@@ -27,10 +38,8 @@ class FeedViewController: UIViewController, Feed {
     let type: FeedType
     
     lazy var navigationBar: NavigationBar = {
-        let navigationBar = NavigationBar(titles: ["TOP", "NEW", "SHOW", "ASK"])
-        navigationBar.barTintColor = ColorPalette.HN.NavBar
+        let navigationBar = NavigationBar(titles: self.type.filters)
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        
         return navigationBar
     }()
     

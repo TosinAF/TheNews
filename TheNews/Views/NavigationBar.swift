@@ -24,6 +24,8 @@ class NavigationBar: UINavigationBar {
     
     let buttons: [UIButton]
     
+    var indicatorViewCenterXConstraint = NSLayoutConstraint()
+    
     var selectedIndex = 0 {
     
         willSet(newIndex) {
@@ -36,19 +38,7 @@ class NavigationBar: UINavigationBar {
         }
     }
     
-    var indicatorViewCenterXConstraint = NSLayoutConstraint()
-    
-    /*lazy var navigationItem: UINavigationItem = {
-        
-        let menuBarButton = UIBarButtonItem(customView: self.menuToggle)
-        let negativeSpacer = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: "")
-        negativeSpacer.width = self.frame.width == 320.0 ? -5 : -10
-        
-        let navigationItem = UINavigationItem(title: "")
-        navigationItem.titleView = self.titleView
-        navigationItem.leftBarButtonItems = [menuBarButton]
-        return navigationItem
-    }()*/
+    // MARK: Views
     
     lazy var menuToggle: JTHamburgerButton = {
         let frame = CGRectMake(0, 0, kMenuButtonSize, kMenuButtonSize)
@@ -83,19 +73,10 @@ class NavigationBar: UINavigationBar {
         super.init(frame: CGRectZero)
         
         configureButtons()
-        addSubview(indicatorView)
-        
-        //let menuBarButton = UIBarButtonItem(customView: self.menuToggle)
-        //let negativeSpacer = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: "")
-        //negativeSpacer.width = self.frame.width == 320.0 ? -5 : -10
-        
-        //let navigationItem = UINavigationItem(title: "")
-        //navigationItem.titleView = self.titleView
-        //navigationItem.leftBarButtonItems = [menuBarButton]
-        //pushNavigationItem(navigationItem, animated: false)
         
         addSubview(menuToggle)
         addSubview(titleView)
+        addSubview(indicatorView)
 
         setupConstraints()
         buttons[selectedIndex].selected = true
@@ -114,8 +95,9 @@ class NavigationBar: UINavigationBar {
             menuToggle.centerY == titleView.centerY
         }
         
+        let centerXOffset = buttons.count <= 2 ? 0.0 : kTitleViewCenterXOffset
         layout(titleView) { titleView in
-            titleView.centerX == titleView.superview!.centerX + kTitleViewCenterXOffset
+            titleView.centerX == titleView.superview!.centerX + centerXOffset
             titleView.centerY == titleView.superview!.centerY + kTitleViewCenterYOffset
         }
         
