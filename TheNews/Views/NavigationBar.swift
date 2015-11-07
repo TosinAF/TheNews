@@ -38,7 +38,7 @@ class NavigationBar: UINavigationBar {
     
     var indicatorViewCenterXConstraint = NSLayoutConstraint()
     
-    lazy var navigationItem: UINavigationItem = {
+    /*lazy var navigationItem: UINavigationItem = {
         
         let menuBarButton = UIBarButtonItem(customView: self.menuToggle)
         let negativeSpacer = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: "")
@@ -46,9 +46,9 @@ class NavigationBar: UINavigationBar {
         
         let navigationItem = UINavigationItem(title: "")
         navigationItem.titleView = self.titleView
-        navigationItem.leftBarButtonItems = [negativeSpacer, menuBarButton]
+        navigationItem.leftBarButtonItems = [menuBarButton]
         return navigationItem
-    }()
+    }()*/
     
     lazy var menuToggle: JTHamburgerButton = {
         let frame = CGRectMake(0, 0, kMenuButtonSize, kMenuButtonSize)
@@ -56,12 +56,14 @@ class NavigationBar: UINavigationBar {
         toggle.configure(lineWidth: 25.0, lineHeight: 1.0, lineSpacing: 7.0)
         toggle.lineColor = .whiteColor()
         toggle.updateAppearance()
+        toggle.translatesAutoresizingMaskIntoConstraints = false
         return toggle
     }()
     
     lazy var titleView: TZStackView = {
         let stackView = TZStackView(arrangedSubviews: self.buttons)
         stackView.configure(distributon: .EqualSpacing, alignment: .Center, axis: .Horizontal, spacing: kButtonSpacing)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
@@ -82,7 +84,18 @@ class NavigationBar: UINavigationBar {
         
         configureButtons()
         addSubview(indicatorView)
-        pushNavigationItem(navigationItem, animated: false)
+        
+        //let menuBarButton = UIBarButtonItem(customView: self.menuToggle)
+        //let negativeSpacer = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: "")
+        //negativeSpacer.width = self.frame.width == 320.0 ? -5 : -10
+        
+        //let navigationItem = UINavigationItem(title: "")
+        //navigationItem.titleView = self.titleView
+        //navigationItem.leftBarButtonItems = [menuBarButton]
+        //pushNavigationItem(navigationItem, animated: false)
+        
+        addSubview(menuToggle)
+        addSubview(titleView)
 
         setupConstraints()
         buttons[selectedIndex].selected = true
@@ -95,6 +108,11 @@ class NavigationBar: UINavigationBar {
     // MARK: Layout
     
     func setupConstraints() {
+        
+        layout(menuToggle, titleView) { menuToggle, titleView in
+            menuToggle.left == menuToggle.superview!.left + 12
+            menuToggle.centerY == titleView.centerY
+        }
         
         layout(titleView) { titleView in
             titleView.centerX == titleView.superview!.centerX + kTitleViewCenterXOffset

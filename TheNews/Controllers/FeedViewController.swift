@@ -12,7 +12,19 @@ import JTHamburgerButton
 
 private let kNavigationBarHeight: CGFloat = 64.0
 
-class FeedViewController: UIViewController {
+enum FeedType: Int {
+    case PH = 0, DN, HN
+}
+
+protocol Feed {
+ 
+    var type: FeedType { get }
+    
+}
+
+class FeedViewController: UIViewController, Feed {
+    
+    let type: FeedType
     
     lazy var navigationBar: NavigationBar = {
         let navigationBar = NavigationBar(titles: ["TOP", "NEW", "SHOW", "ASK"])
@@ -34,15 +46,29 @@ class FeedViewController: UIViewController {
         return tableView
     }()
     
-    override func viewDidAppear(animated: Bool) {
+    init(type: FeedType) {
+        self.type = type
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
-
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
         view.addSubview(navigationBar)
         view.addSubview(tableView)
+        
+        configure()
+        
         addConstriants()
     }
     
@@ -57,6 +83,18 @@ class FeedViewController: UIViewController {
         
         layout(tableView) { tableView in
             tableView.edges == inset(tableView.superview!.edges, kNavigationBarHeight, 0, 0, 0)
+        }
+    }
+    
+    func configure() {
+        
+        switch (type) {
+        case .PH:
+            navigationBar.barTintColor = ColorPalette.PH.Brand
+        case .DN:
+            navigationBar.barTintColor = ColorPalette.DN.NavBar
+        case .HN:
+            navigationBar.barTintColor = ColorPalette.HN.NavBar
         }
     }
 }
