@@ -11,19 +11,52 @@ import Cartography
 
 class HomeViewController: UIViewController {
     
-    let vcs = [FeedViewController(type: .PH), FeedViewController(type: .DN), FeedViewController(type: .HN)]
+    // MARK: Properties
+    
+    let vcs: [FeedType: UIViewController] = [.PH : FeedViewController(type: .PH), .DN: FeedViewController(type: .DN), .HN: FeedViewController(type: .HN)]
+    
+    var currentFeedType: FeedType = .DN
+    
+    // MARK: Views
     
     lazy var pageViewController: PageViewController = {
+        guard let initialVC = self.vcs[.DN]
+            else { fatalError("View Controllers have not been properly configured ") }
         let pageViewController = PageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         pageViewController.delegate = self
         pageViewController.dataSource = self
-        pageViewController.view.backgroundColor = UIColor.whiteColor()
+        pageViewController.view.backgroundColor = ColorPalette.Grey.Light
+        pageViewController.setViewControllers([initialVC], direction: .Forward, animated: false, completion: nil)
         pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
         return pageViewController
     }()
     
+    lazy var feedPickerView: FeedPickerView = {
+        let pickerView = FeedPickerView(feedTypes: [.PH, .DN, .HN])
+        pickerView.selectionClosure = { type in
+            
+            var direction: UIPageViewControllerNavigationDirection = .Forward
+            if type.rawValue < self.currentFeedType.rawValue {
+                direction = .Reverse
+            }
+            
+            guard let vc = self.vcs[type]
+                else { fatalError("View Controllers have not been properly configured ") }
+            
+            self.pageViewController.setViewControllers([vc], direction: direction, animated: true, completion: nil)
+            self.currentFeedType = type
+        }
+        pickerView.layer.cornerRadius = 5.0
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
+        return pickerView
+    }()
+    
+    // MARK: View Lifecycle
+    
     override func viewWillAppear(animated: Bool) {
+        
         super.viewDidAppear(animated)
+        
         edgesForExtendedLayout = .None
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
@@ -36,16 +69,23 @@ class HomeViewController: UIViewController {
         addChildViewController(pageViewController)
         view.addSubview(pageViewController.view)
         
+        view.addSubview(feedPickerView)
+        
+        setupConstraints()
+    }
+    
+    // MARK: Layout
+    
+    func setupConstraints() {
+    
         layout(pageViewController.view) { pageView in
             pageView.edges == pageView.superview!.edges
         }
         
-        view.layoutIfNeeded()
-        
-        let initialVC = vcs[1]
-        initialVC.view.frame = pageViewController.view.frame
-        pageViewController.setViewControllers([initialVC], direction:  UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
-    
+        layout(feedPickerView) { feedPickerView in
+            feedPickerView.right == feedPickerView.superview!.right - 15
+            feedPickerView.bottom == feedPickerView.superview!.bottom - 20
+        }
     }
 }
 
@@ -59,14 +99,12 @@ extension HomeViewController: UIPageViewControllerDelegate, UIPageViewController
         
         switch (vc.type) {
         case .HN:
-            return vcs[1]
+            return vcs[.DN]
         case .DN:
-            return vcs[0]
-        case.PH:
+            return vcs[.PH]
+        case .PH:
             return nil
         }
-        
-        
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
@@ -77,10 +115,16 @@ extension HomeViewController: UIPageViewControllerDelegate, UIPageViewController
         case .HN:
             return nil
         case .DN:
-            return vcs[2]
-        case.PH:
-            return vcs[1]
+            return vcs[.HN]
+        case .PH:
+            return vcs[.DN]
         }
+    }
+    
+    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+
+        let vc = pendingViewControllers.first as! Feed
+        currentFeedType = vc.type
     }
 }
 

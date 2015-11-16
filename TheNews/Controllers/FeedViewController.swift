@@ -12,33 +12,13 @@ import JTHamburgerButton
 
 private let kNavigationBarHeight: CGFloat = 64.0
 
-enum FeedType: Int {
-    case PH = 0, DN, HN
-    
-    var filters: [String] {
-        switch(self) {
-        case .PH:
-            return ["TOP", "RECENT"]
-        case .DN:
-            return ["TOP", "RECENT"]
-        case .HN:
-            return ["TOP", "NEW", "SHOW", "ASK"]
-        }
-    }
-}
-
-protocol Feed {
- 
-    var type: FeedType { get }
-    
-}
-
 class FeedViewController: UIViewController, Feed {
     
     let type: FeedType
     
     lazy var navigationBar: NavigationBar = {
         let navigationBar = NavigationBar(titles: self.type.filters)
+        navigationBar.barTintColor = self.type.colors.NavBar
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         return navigationBar
     }()
@@ -76,12 +56,10 @@ class FeedViewController: UIViewController, Feed {
         view.addSubview(navigationBar)
         view.addSubview(tableView)
         
-        configure()
-        
-        addConstriants()
+        setupConstriants()
     }
     
-    func addConstriants() {
+    func setupConstriants() {
     
         layout(navigationBar) { navigationBar in
             navigationBar.top == navigationBar.superview!.top
@@ -92,18 +70,6 @@ class FeedViewController: UIViewController, Feed {
         
         layout(tableView) { tableView in
             tableView.edges == inset(tableView.superview!.edges, kNavigationBarHeight, 0, 0, 0)
-        }
-    }
-    
-    func configure() {
-        
-        switch (type) {
-        case .PH:
-            navigationBar.barTintColor = ColorPalette.PH.Brand
-        case .DN:
-            navigationBar.barTintColor = ColorPalette.DN.NavBar
-        case .HN:
-            navigationBar.barTintColor = ColorPalette.HN.NavBar
         }
     }
 }

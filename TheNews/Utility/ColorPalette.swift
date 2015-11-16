@@ -29,6 +29,7 @@ struct ColorPalette {
     
     struct Grey {
         static let Normal = UIColor(red: 0.765, green: 0.765, blue: 0.765, alpha: 1.0)
-        static let Light = UIColor(red: 0.941, green: 0.941, blue: 0.941, alpha: 1.0)
+        static let Light  = UIColor(red: 0.941, green: 0.941, blue: 0.941, alpha: 1.0)
+        static let Cloudy = UIColor(red: 0.925, green: 0.925, blue: 0.925, alpha: 1.0)
     }
 }

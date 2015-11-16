@@ -15,6 +15,9 @@
 		4E8585251B62980C00E083F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E8585241B62980C00E083F6 /* Assets.xcassets */; };
 		4E925E651B9B77F5003D92C5 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E925E641B9B77F5003D92C5 /* FeedTableViewCell.swift */; };
 		4EC20CBC1B99587E00EDB4F9 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC20CBB1B99587E00EDB4F9 /* NavigationBar.swift */; };
+		4EE025B81BF8E1B5001BDB49 /* FeedPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE025B71BF8E1B5001BDB49 /* FeedPickerView.swift */; };
+		4EE025BA1BF8FD71001BDB49 /* FeedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE025B91BF8FD71001BDB49 /* FeedType.swift */; };
+		4EE025BC1BF8FD8F001BDB49 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE025BB1BF8FD8F001BDB49 /* Feed.swift */; };
 		4EEB5C091B95513300853F7C /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEB5C081B95513300853F7C /* FeedViewController.swift */; };
 		4EEB5C0B1B95513A00853F7C /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEB5C0A1B95513A00853F7C /* ColorPalette.swift */; };
 		4EEB5C131B9556BD00853F7C /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EEB5C111B9556BD00853F7C /* Montserrat-Bold.ttf */; };
@@ -36,6 +39,9 @@
 		4E8585291B62980C00E083F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E925E641B9B77F5003D92C5 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedTableViewCell.swift; path = Views/FeedTableViewCell.swift; sourceTree = "<group>"; };
 		4EC20CBB1B99587E00EDB4F9 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationBar.swift; path = Views/NavigationBar.swift; sourceTree = "<group>"; };
+		4EE025B71BF8E1B5001BDB49 /* FeedPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedPickerView.swift; path = Views/FeedPickerView.swift; sourceTree = "<group>"; };
+		4EE025B91BF8FD71001BDB49 /* FeedType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedType.swift; sourceTree = "<group>"; };
+		4EE025BB1BF8FD8F001BDB49 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		4EEB5C081B95513300853F7C /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = Controllers/FeedViewController.swift; sourceTree = "<group>"; };
 		4EEB5C0A1B95513A00853F7C /* ColorPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorPalette.swift; path = Utility/ColorPalette.swift; sourceTree = "<group>"; };
 		4EEB5C111B9556BD00853F7C /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "Utility/Fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
@@ -66,6 +72,7 @@
 		4E0439981BE8FAA6006165CC /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				4EE025BB1BF8FD8F001BDB49 /* Feed.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -123,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				4EC20CBB1B99587E00EDB4F9 /* NavigationBar.swift */,
+				4EE025B71BF8E1B5001BDB49 /* FeedPickerView.swift */,
 				4E925E641B9B77F5003D92C5 /* FeedTableViewCell.swift */,
 				4E40FBA11BE8661300AD0F6B /* CommentButton.swift */,
 			);
@@ -133,8 +141,8 @@
 			isa = PBXGroup;
 			children = (
 				4E40FBA31BE8E3C400AD0F6B /* HomeViewController.swift */,
-				4E04399B1BE91DEB006165CC /* PageViewController.swift */,
 				4EEB5C081B95513300853F7C /* FeedViewController.swift */,
+				4E04399B1BE91DEB006165CC /* PageViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -142,6 +150,7 @@
 		4EEB5C051B95502100853F7C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				4EE025B91BF8FD71001BDB49 /* FeedType.swift */,
 				4EEB5C0A1B95513A00853F7C /* ColorPalette.swift */,
 				4E40FB9F1BE8637800AD0F6B /* Extension+TZStackView.swift */,
 			);
@@ -288,12 +297,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EE025B81BF8E1B5001BDB49 /* FeedPickerView.swift in Sources */,
+				4EE025BC1BF8FD8F001BDB49 /* Feed.swift in Sources */,
 				4EC20CBC1B99587E00EDB4F9 /* NavigationBar.swift in Sources */,
 				4E04399C1BE91DEB006165CC /* PageViewController.swift in Sources */,
 				4E40FBA01BE8637800AD0F6B /* Extension+TZStackView.swift in Sources */,
 				4EEB5C091B95513300853F7C /* FeedViewController.swift in Sources */,
 				4E40FBA41BE8E3C400AD0F6B /* HomeViewController.swift in Sources */,
 				4E925E651B9B77F5003D92C5 /* FeedTableViewCell.swift in Sources */,
+				4EE025BA1BF8FD71001BDB49 /* FeedType.swift in Sources */,
 				4E85851E1B62980B00E083F6 /* AppDelegate.swift in Sources */,
 				4E40FBA21BE8661300AD0F6B /* CommentButton.swift in Sources */,
 				4EEB5C0B1B95513A00853F7C /* ColorPalette.swift in Sources */,
