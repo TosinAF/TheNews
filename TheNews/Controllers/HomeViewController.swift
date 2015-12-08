@@ -19,10 +19,10 @@ class HomeViewController: UIViewController {
     
     // MARK: Views
     
-    lazy var pageViewController: PageViewController = {
+    lazy var pageViewController: UIPageViewController = {
         guard let initialVC = self.vcs[.DN]
             else { fatalError("View Controllers have not been properly configured ") }
-        let pageViewController = PageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+        let pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         pageViewController.delegate = self
         pageViewController.dataSource = self
         pageViewController.view.backgroundColor = ColorPalette.Grey.Light
@@ -31,9 +31,9 @@ class HomeViewController: UIViewController {
         return pageViewController
     }()
     
-    lazy var feedPickerView: FeedPickerView = {
-        let pickerView = FeedPickerView(feedTypes: [.PH, .DN, .HN])
-        pickerView.selectionClosure = { type in
+    lazy var quickSwitcherView: QuickSwitcherView = {
+        let quickSwitcherView = QuickSwitcherView(feedTypes: [.PH, .DN, .HN])
+        quickSwitcherView.selectionClosure = { type in
             
             var direction: UIPageViewControllerNavigationDirection = .Forward
             if type.rawValue < self.currentFeedType.rawValue {
@@ -46,9 +46,9 @@ class HomeViewController: UIViewController {
             self.pageViewController.setViewControllers([vc], direction: direction, animated: true, completion: nil)
             self.currentFeedType = type
         }
-        pickerView.layer.cornerRadius = 5.0
-        pickerView.translatesAutoresizingMaskIntoConstraints = false
-        return pickerView
+        quickSwitcherView.layer.cornerRadius = 5.0
+        quickSwitcherView.translatesAutoresizingMaskIntoConstraints = false
+        return quickSwitcherView
     }()
     
     // MARK: View Lifecycle
@@ -69,7 +69,7 @@ class HomeViewController: UIViewController {
         addChildViewController(pageViewController)
         view.addSubview(pageViewController.view)
         
-        view.addSubview(feedPickerView)
+        view.addSubview(quickSwitcherView)
         
         setupConstraints()
     }
@@ -78,12 +78,12 @@ class HomeViewController: UIViewController {
     
     func setupConstraints() {
     
-        layout(pageViewController.view) { pageView in
+        constrain(pageViewController.view) { pageView in
             pageView.edges == pageView.superview!.edges
         }
         
-        layout(feedPickerView) { feedPickerView in
-            feedPickerView.right == feedPickerView.superview!.right - 15
+        constrain(quickSwitcherView) { feedPickerView in
+            feedPickerView.centerX == feedPickerView.superview!.centerX
             feedPickerView.bottom == feedPickerView.superview!.bottom - 20
         }
     }
@@ -98,12 +98,12 @@ extension HomeViewController: UIPageViewControllerDelegate, UIPageViewController
         let vc = viewController as! Feed
         
         switch (vc.type) {
-        case .HN:
-            return vcs[.DN]
-        case .DN:
-            return vcs[.PH]
         case .PH:
             return nil
+        case .DN:
+            return vcs[.PH]
+        case .HN:
+            return vcs[.DN]
         }
     }
     
@@ -112,12 +112,12 @@ extension HomeViewController: UIPageViewControllerDelegate, UIPageViewController
         let vc = viewController as! Feed
         
         switch (vc.type) {
-        case .HN:
-            return nil
-        case .DN:
-            return vcs[.HN]
         case .PH:
             return vcs[.DN]
+        case .DN:
+            return vcs[.HN]
+        case .HN:
+            return nil
         }
     }
     

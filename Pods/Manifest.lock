@@ -1,32 +1,22 @@
 PODS:
-  - Cartography (0.5.0)
+  - Cartography (0.6.0)
   - JTHamburgerButton (1.0.5)
-  - pop (1.0.7)
-  - Reveal-iOS-SDK (1.6.1)
-  - TZStackView (1.1.2)
+  - pop (1.0.8)
+  - Reveal-iOS-SDK (1.6.2)
+  - TZStackView (1.1.0)
 
 DEPENDENCIES:
-  - Cartography (from `https://github.com/robb/Cartography.git`, branch `swift-2.0`)
+  - Cartography
   - JTHamburgerButton (~> 1.0)
   - pop
   - Reveal-iOS-SDK
-  - TZStackView
-
-EXTERNAL SOURCES:
-  Cartography:
-    :branch: swift-2.0
-    :git: https://github.com/robb/Cartography.git
-
-CHECKOUT OPTIONS:
-  Cartography:
-    :commit: 36eeb22dbf7db7eff066389e9dc19e47a7266071
-    :git: https://github.com/robb/Cartography.git
+  - TZStackView (= 1.1.0)
 
 SPEC CHECKSUMS:
-  Cartography: 774e5cc446f5a6bca5d4345c5aa6af9a1fe74dc6
+  Cartography: 70af183a248547694a8cfaa6b989cb7e04589985
   JTHamburgerButton: 9a41c7d051c72590a9d2c18416d84d1b912f12e3
-  pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
-  Reveal-iOS-SDK: ceae964076cebe3efe63e5e9abe3152efce46aa8
-  TZStackView: 19aeaa414fb653f4be9b80a73f4f0c66e33bf033
+  pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
+  Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
+  TZStackView: 513a7fd55ff559bb43c50096011e797a4e9a2a17
 
 COCOAPODS: 0.39.0

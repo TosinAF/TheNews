@@ -90,19 +90,21 @@ class NavigationBar: UINavigationBar {
     
     func setupConstraints() {
         
-        layout(menuToggle, titleView) { menuToggle, titleView in
+        constrain(menuToggle, titleView) { menuToggle, titleView in
             menuToggle.left == menuToggle.superview!.left + 12
             menuToggle.centerY == titleView.centerY
         }
         
         let centerXOffset = buttons.count <= 2 ? 0.0 : kTitleViewCenterXOffset
-        layout(titleView) { titleView in
+        constrain(titleView) { titleView in
             titleView.centerX == titleView.superview!.centerX + centerXOffset
             titleView.centerY == titleView.superview!.centerY + kTitleViewCenterYOffset
         }
         
+        layoutIfNeeded()
+        
         let offset = buttons[selectedIndex].center.x
-        layout(indicatorView, buttons[selectedIndex], titleView) { indicatorView, button, titleView in
+        constrain(indicatorView, buttons[selectedIndex], titleView) { indicatorView, button, titleView in
             indicatorView.width == kIndicatorViewSize
             indicatorView.height == kIndicatorViewSize
             indicatorView.bottom == button.bottom

@@ -16,6 +16,8 @@ private let kLeftMargin = 13.0
 
 final class FeedTableViewCell: UITableViewCell {
     
+    var commentButtonClosure: (() -> Void)?
+    
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
@@ -35,7 +37,16 @@ final class FeedTableViewCell: UITableViewCell {
         let button = CommentButton()
         button.layer.cornerRadius = 2.0
         button.backgroundColor = UIColor(red:0.969, green:0.969, blue:0.969, alpha: 1.0)
+        button.addTarget(self, action: "commentButtonTapped", forControlEvents: .TouchUpInside)
         return button
+    }()
+    
+    lazy var borderView: UIView = {
+        let view = UIView()
+        view.alpha = 0.0
+        view.backgroundColor = ColorPalette.Grey.Cloudy
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -59,12 +70,24 @@ final class FeedTableViewCell: UITableViewCell {
         stackView.configure(distributon: .Fill, alignment: .Center, axis: .Horizontal, spacing: 0.0)
         
         contentView.addSubview(stackView)
+        contentView.addSubview(borderView)
         
-        layout(stackView) { stackView in
+        constrain(stackView) { stackView in
             stackView.left == stackView.superview!.left + 15
             stackView.right == stackView.superview!.right - 15
             stackView.centerY == stackView.superview!.centerY
         }
+        
+        constrain(borderView) { borderView in
+            borderView.left == borderView.superview!.left
+            borderView.width == borderView.superview!.width
+            borderView.bottom == borderView.superview!.bottom
+            borderView.height == 2
+        }
+    }
+    
+    func commentButtonTapped() {
+        commentButtonClosure?()
     }
 }
 

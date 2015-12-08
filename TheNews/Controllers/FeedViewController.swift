@@ -10,11 +10,11 @@ import UIKit
 import Cartography
 import JTHamburgerButton
 
-private let kNavigationBarHeight: CGFloat = 64.0
-
 class FeedViewController: UIViewController, Feed {
     
     let type: FeedType
+    
+    var targetCellIndexPath = NSIndexPath()
     
     lazy var navigationBar: NavigationBar = {
         let navigationBar = NavigationBar(titles: self.type.filters)
@@ -61,14 +61,14 @@ class FeedViewController: UIViewController, Feed {
     
     func setupConstriants() {
     
-        layout(navigationBar) { navigationBar in
+        constrain(navigationBar) { navigationBar in
             navigationBar.top == navigationBar.superview!.top
             navigationBar.left == navigationBar.superview!.left
             navigationBar.width == navigationBar.superview!.width
             navigationBar.height == kNavigationBarHeight
         }
         
-        layout(tableView) { tableView in
+        constrain(tableView) { tableView in
             tableView.edges == inset(tableView.superview!.edges, kNavigationBarHeight, 0, 0, 0)
         }
     }
@@ -96,7 +96,35 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.detailLabel.text = "49 points by Andrew W."
+        
+        cell.commentButtonClosure = {
+            
+            self.targetCellIndexPath = indexPath
+            
+            let commentsViewController = CommentsViewController()
+            commentsViewController.modalPresentationStyle = .Custom
+            commentsViewController.transitioningDelegate = self
+            self.presentViewController(commentsViewController, animated: true, completion:nil)
+        }
+        
         return cell
+    }
+}
+
+// MARK: - Transitioning Delegate
+
+extension FeedViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        guard let s = source as? FeedViewController
+            else { fatalError("Wrong Source View Controller Type used for Transistion") }
+        
+        return PresentCommentsTransition(source: s)
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return nil
     }
 }
 

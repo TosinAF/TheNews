@@ -8,20 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		4E04399C1BE91DEB006165CC /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04399B1BE91DEB006165CC /* PageViewController.swift */; };
+		4E1E1EE01C10030C009173C8 /* PresentCommentsTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E1EDF1C10030C009173C8 /* PresentCommentsTransition.swift */; };
 		4E40FBA01BE8637800AD0F6B /* Extension+TZStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FB9F1BE8637800AD0F6B /* Extension+TZStackView.swift */; };
 		4E40FBA21BE8661300AD0F6B /* CommentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FBA11BE8661300AD0F6B /* CommentButton.swift */; };
 		4E40FBA41BE8E3C400AD0F6B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FBA31BE8E3C400AD0F6B /* HomeViewController.swift */; };
+		4E49D6901C1621B300B12819 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E49D68F1C1621B300B12819 /* Constants.swift */; };
 		4E85851E1B62980B00E083F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E85851D1B62980B00E083F6 /* AppDelegate.swift */; };
 		4E8585251B62980C00E083F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E8585241B62980C00E083F6 /* Assets.xcassets */; };
 		4E925E651B9B77F5003D92C5 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E925E641B9B77F5003D92C5 /* FeedTableViewCell.swift */; };
 		4EC20CBC1B99587E00EDB4F9 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC20CBB1B99587E00EDB4F9 /* NavigationBar.swift */; };
-		4EE025B81BF8E1B5001BDB49 /* FeedPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE025B71BF8E1B5001BDB49 /* FeedPickerView.swift */; };
+		4EE025B81BF8E1B5001BDB49 /* QuickSwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE025B71BF8E1B5001BDB49 /* QuickSwitcherView.swift */; };
 		4EE025BA1BF8FD71001BDB49 /* FeedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE025B91BF8FD71001BDB49 /* FeedType.swift */; };
 		4EE025BC1BF8FD8F001BDB49 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE025BB1BF8FD8F001BDB49 /* Feed.swift */; };
 		4EEB5C091B95513300853F7C /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEB5C081B95513300853F7C /* FeedViewController.swift */; };
 		4EEB5C0B1B95513A00853F7C /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEB5C0A1B95513A00853F7C /* ColorPalette.swift */; };
 		4EEB5C131B9556BD00853F7C /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EEB5C111B9556BD00853F7C /* Montserrat-Bold.ttf */; };
 		4EEB5C141B9556BD00853F7C /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EEB5C121B9556BD00853F7C /* Montserrat-Regular.ttf */; };
+		4EF0352E1BFF700700BEA55B /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF0352D1BFF700700BEA55B /* CommentsViewController.swift */; };
+		4EF0354E1C06539500BEA55B /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF0354D1C06539500BEA55B /* CommentTableViewCell.swift */; };
+		4EF035501C08B9D700BEA55B /* LoremSwiftum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF0354F1C08B9D700BEA55B /* LoremSwiftum.swift */; };
 		690E22202851C2442A9D8C99 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25EF89090F1A703B0491541A /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,22 +35,27 @@
 		1F061C54C4C3F6AAE5D2D241 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		25EF89090F1A703B0491541A /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E04399B1BE91DEB006165CC /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewController.swift; path = Controllers/PageViewController.swift; sourceTree = "<group>"; };
+		4E1E1EDF1C10030C009173C8 /* PresentCommentsTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresentCommentsTransition.swift; path = TransistionMangers/PresentCommentsTransition.swift; sourceTree = "<group>"; };
 		4E40FB9F1BE8637800AD0F6B /* Extension+TZStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Extension+TZStackView.swift"; path = "Utility/Extension+TZStackView.swift"; sourceTree = "<group>"; };
 		4E40FBA11BE8661300AD0F6B /* CommentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentButton.swift; path = Views/CommentButton.swift; sourceTree = "<group>"; };
 		4E40FBA31BE8E3C400AD0F6B /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Controllers/HomeViewController.swift; sourceTree = "<group>"; };
+		4E49D68F1C1621B300B12819 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Utility/Constants.swift; sourceTree = "<group>"; };
 		4E85851A1B62980B00E083F6 /* TheNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E85851D1B62980B00E083F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E8585241B62980C00E083F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E8585291B62980C00E083F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E925E641B9B77F5003D92C5 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedTableViewCell.swift; path = Views/FeedTableViewCell.swift; sourceTree = "<group>"; };
 		4EC20CBB1B99587E00EDB4F9 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationBar.swift; path = Views/NavigationBar.swift; sourceTree = "<group>"; };
-		4EE025B71BF8E1B5001BDB49 /* FeedPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedPickerView.swift; path = Views/FeedPickerView.swift; sourceTree = "<group>"; };
+		4EE025B71BF8E1B5001BDB49 /* QuickSwitcherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuickSwitcherView.swift; path = Views/QuickSwitcherView.swift; sourceTree = "<group>"; };
 		4EE025B91BF8FD71001BDB49 /* FeedType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedType.swift; sourceTree = "<group>"; };
 		4EE025BB1BF8FD8F001BDB49 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		4EEB5C081B95513300853F7C /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = Controllers/FeedViewController.swift; sourceTree = "<group>"; };
 		4EEB5C0A1B95513A00853F7C /* ColorPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorPalette.swift; path = Utility/ColorPalette.swift; sourceTree = "<group>"; };
 		4EEB5C111B9556BD00853F7C /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "Utility/Fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		4EEB5C121B9556BD00853F7C /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "Utility/Fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		4EF0352D1BFF700700BEA55B /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsViewController.swift; path = Controllers/CommentsViewController.swift; sourceTree = "<group>"; };
+		4EF0354D1C06539500BEA55B /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentTableViewCell.swift; path = Views/CommentTableViewCell.swift; sourceTree = "<group>"; };
+		4EF0354F1C08B9D700BEA55B /* LoremSwiftum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoremSwiftum.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +87,14 @@
 			name = Protocols;
 			sourceTree = "<group>";
 		};
+		4E1E1EDE1C1002CA009173C8 /* Transistions */ = {
+			isa = PBXGroup;
+			children = (
+				4E1E1EDF1C10030C009173C8 /* PresentCommentsTransition.swift */,
+			);
+			name = Transistions;
+			sourceTree = "<group>";
+		};
 		4E8585111B62980B00E083F6 = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +120,7 @@
 				4E0439981BE8FAA6006165CC /* Protocols */,
 				4EEB5C051B95502100853F7C /* Utility */,
 				4EEB5C041B954EF700853F7C /* Controllers */,
+				4E1E1EDE1C1002CA009173C8 /* Transistions */,
 				4EEB5C031B954EEF00853F7C /* Views */,
 				4EEB5C021B954EE500853F7C /* Model */,
 				4EC20CBD1B9AA48100EDB4F9 /* Resources */,
@@ -130,8 +149,9 @@
 			isa = PBXGroup;
 			children = (
 				4EC20CBB1B99587E00EDB4F9 /* NavigationBar.swift */,
-				4EE025B71BF8E1B5001BDB49 /* FeedPickerView.swift */,
+				4EE025B71BF8E1B5001BDB49 /* QuickSwitcherView.swift */,
 				4E925E641B9B77F5003D92C5 /* FeedTableViewCell.swift */,
+				4EF0354D1C06539500BEA55B /* CommentTableViewCell.swift */,
 				4E40FBA11BE8661300AD0F6B /* CommentButton.swift */,
 			);
 			name = Views;
@@ -142,6 +162,7 @@
 			children = (
 				4E40FBA31BE8E3C400AD0F6B /* HomeViewController.swift */,
 				4EEB5C081B95513300853F7C /* FeedViewController.swift */,
+				4EF0352D1BFF700700BEA55B /* CommentsViewController.swift */,
 				4E04399B1BE91DEB006165CC /* PageViewController.swift */,
 			);
 			name = Controllers;
@@ -150,9 +171,11 @@
 		4EEB5C051B95502100853F7C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				4EF0354F1C08B9D700BEA55B /* LoremSwiftum.swift */,
 				4EE025B91BF8FD71001BDB49 /* FeedType.swift */,
 				4EEB5C0A1B95513A00853F7C /* ColorPalette.swift */,
 				4E40FB9F1BE8637800AD0F6B /* Extension+TZStackView.swift */,
+				4E49D68F1C1621B300B12819 /* Constants.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -297,8 +320,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EE025B81BF8E1B5001BDB49 /* FeedPickerView.swift in Sources */,
+				4EE025B81BF8E1B5001BDB49 /* QuickSwitcherView.swift in Sources */,
+				4E49D6901C1621B300B12819 /* Constants.swift in Sources */,
+				4EF0352E1BFF700700BEA55B /* CommentsViewController.swift in Sources */,
+				4E1E1EE01C10030C009173C8 /* PresentCommentsTransition.swift in Sources */,
 				4EE025BC1BF8FD8F001BDB49 /* Feed.swift in Sources */,
+				4EF035501C08B9D700BEA55B /* LoremSwiftum.swift in Sources */,
 				4EC20CBC1B99587E00EDB4F9 /* NavigationBar.swift in Sources */,
 				4E04399C1BE91DEB006165CC /* PageViewController.swift in Sources */,
 				4E40FBA01BE8637800AD0F6B /* Extension+TZStackView.swift in Sources */,
@@ -307,6 +334,7 @@
 				4E925E651B9B77F5003D92C5 /* FeedTableViewCell.swift in Sources */,
 				4EE025BA1BF8FD71001BDB49 /* FeedType.swift in Sources */,
 				4E85851E1B62980B00E083F6 /* AppDelegate.swift in Sources */,
+				4EF0354E1C06539500BEA55B /* CommentTableViewCell.swift in Sources */,
 				4E40FBA21BE8661300AD0F6B /* CommentButton.swift in Sources */,
 				4EEB5C0B1B95513A00853F7C /* ColorPalette.swift in Sources */,
 			);
