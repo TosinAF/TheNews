@@ -1,5 +1,6 @@
 PODS:
   - Cartography (0.6.0)
+  - EasyAnimation (1.0.2)
   - JTHamburgerButton (1.0.5)
   - pop (1.0.8)
   - Reveal-iOS-SDK (1.6.2)
@@ -7,13 +8,15 @@ PODS:
 
 DEPENDENCIES:
   - Cartography
-  - JTHamburgerButton (~> 1.0)
+  - EasyAnimation
+  - JTHamburgerButton
   - pop
   - Reveal-iOS-SDK
-  - TZStackView (= 1.1.0)
+  - TZStackView
 
 SPEC CHECKSUMS:
   Cartography: 70af183a248547694a8cfaa6b989cb7e04589985
+  EasyAnimation: 9615e40f58aa7d8d6a67de66e0edda1903ffa990
   JTHamburgerButton: 9a41c7d051c72590a9d2c18416d84d1b912f12e3
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33

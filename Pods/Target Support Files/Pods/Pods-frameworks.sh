@@ -85,12 +85,14 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/Cartography.framework"
+  install_framework "Pods/EasyAnimation.framework"
   install_framework "Pods/JTHamburgerButton.framework"
   install_framework "Pods/TZStackView.framework"
   install_framework "Pods/pop.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/Cartography.framework"
+  install_framework "Pods/EasyAnimation.framework"
   install_framework "Pods/JTHamburgerButton.framework"
   install_framework "Pods/TZStackView.framework"
   install_framework "Pods/pop.framework"

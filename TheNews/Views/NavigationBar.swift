@@ -43,9 +43,8 @@ class NavigationBar: UINavigationBar {
     lazy var menuToggle: JTHamburgerButton = {
         let frame = CGRectMake(0, 0, kMenuButtonSize, kMenuButtonSize)
         let toggle = JTHamburgerButton(frame: frame)
-        toggle.configure(lineWidth: 25.0, lineHeight: 1.0, lineSpacing: 7.0)
         toggle.lineColor = .whiteColor()
-        toggle.updateAppearance()
+        toggle.configure(lineWidth: 25.0, lineHeight: 1.0, lineSpacing: 7.0)
         toggle.translatesAutoresizingMaskIntoConstraints = false
         return toggle
     }()
@@ -158,17 +157,6 @@ private class ButtonFactory {
         button.setTitleColor(UIColor(white: 1.0, alpha: 0.6), forState: .Normal)
         button.setTitleColor(UIColor(white: 1.0, alpha: 1.0), forState: .Selected)
         return button
-    }
-}
-
-// MARK: - JTHamburgerButton Extension
-
-private extension JTHamburgerButton {
-    
-    func configure(lineWidth lineWidth: CGFloat, lineHeight: CGFloat, lineSpacing: CGFloat) {
-        self.lineWidth = lineWidth
-        self.lineHeight = lineHeight
-        self.lineSpacing = lineSpacing
     }
 }
 

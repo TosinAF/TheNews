@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		4E04399C1BE91DEB006165CC /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04399B1BE91DEB006165CC /* PageViewController.swift */; };
 		4E1E1EE01C10030C009173C8 /* PresentCommentsTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E1EDF1C10030C009173C8 /* PresentCommentsTransition.swift */; };
-		4E40FBA01BE8637800AD0F6B /* Extension+TZStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FB9F1BE8637800AD0F6B /* Extension+TZStackView.swift */; };
+		4E40FBA01BE8637800AD0F6B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FB9F1BE8637800AD0F6B /* Extensions.swift */; };
 		4E40FBA21BE8661300AD0F6B /* CommentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FBA11BE8661300AD0F6B /* CommentButton.swift */; };
 		4E40FBA41BE8E3C400AD0F6B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FBA31BE8E3C400AD0F6B /* HomeViewController.swift */; };
 		4E49D6901C1621B300B12819 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E49D68F1C1621B300B12819 /* Constants.swift */; };
+		4E7FDF821C1820C500E55E8A /* DismissCommentsTransistion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7FDF811C1820C500E55E8A /* DismissCommentsTransistion.swift */; };
 		4E85851E1B62980B00E083F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E85851D1B62980B00E083F6 /* AppDelegate.swift */; };
 		4E8585251B62980C00E083F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E8585241B62980C00E083F6 /* Assets.xcassets */; };
 		4E925E651B9B77F5003D92C5 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E925E641B9B77F5003D92C5 /* FeedTableViewCell.swift */; };
@@ -36,10 +37,11 @@
 		25EF89090F1A703B0491541A /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E04399B1BE91DEB006165CC /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewController.swift; path = Controllers/PageViewController.swift; sourceTree = "<group>"; };
 		4E1E1EDF1C10030C009173C8 /* PresentCommentsTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresentCommentsTransition.swift; path = TransistionMangers/PresentCommentsTransition.swift; sourceTree = "<group>"; };
-		4E40FB9F1BE8637800AD0F6B /* Extension+TZStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Extension+TZStackView.swift"; path = "Utility/Extension+TZStackView.swift"; sourceTree = "<group>"; };
+		4E40FB9F1BE8637800AD0F6B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Utility/Extensions.swift; sourceTree = "<group>"; };
 		4E40FBA11BE8661300AD0F6B /* CommentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentButton.swift; path = Views/CommentButton.swift; sourceTree = "<group>"; };
 		4E40FBA31BE8E3C400AD0F6B /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Controllers/HomeViewController.swift; sourceTree = "<group>"; };
 		4E49D68F1C1621B300B12819 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Utility/Constants.swift; sourceTree = "<group>"; };
+		4E7FDF811C1820C500E55E8A /* DismissCommentsTransistion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DismissCommentsTransistion.swift; path = TransistionMangers/DismissCommentsTransistion.swift; sourceTree = "<group>"; };
 		4E85851A1B62980B00E083F6 /* TheNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E85851D1B62980B00E083F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E8585241B62980C00E083F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -91,8 +93,17 @@
 			isa = PBXGroup;
 			children = (
 				4E1E1EDF1C10030C009173C8 /* PresentCommentsTransition.swift */,
+				4E7FDF811C1820C500E55E8A /* DismissCommentsTransistion.swift */,
 			);
 			name = Transistions;
+			sourceTree = "<group>";
+		};
+		4E7FDF7E1C16F20B00E55E8A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4E40FB9F1BE8637800AD0F6B /* Extensions.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		4E8585111B62980B00E083F6 = {
@@ -119,8 +130,8 @@
 				4E85851D1B62980B00E083F6 /* AppDelegate.swift */,
 				4E0439981BE8FAA6006165CC /* Protocols */,
 				4EEB5C051B95502100853F7C /* Utility */,
-				4EEB5C041B954EF700853F7C /* Controllers */,
 				4E1E1EDE1C1002CA009173C8 /* Transistions */,
+				4EEB5C041B954EF700853F7C /* Controllers */,
 				4EEB5C031B954EEF00853F7C /* Views */,
 				4EEB5C021B954EE500853F7C /* Model */,
 				4EC20CBD1B9AA48100EDB4F9 /* Resources */,
@@ -174,8 +185,8 @@
 				4EF0354F1C08B9D700BEA55B /* LoremSwiftum.swift */,
 				4EE025B91BF8FD71001BDB49 /* FeedType.swift */,
 				4EEB5C0A1B95513A00853F7C /* ColorPalette.swift */,
-				4E40FB9F1BE8637800AD0F6B /* Extension+TZStackView.swift */,
 				4E49D68F1C1621B300B12819 /* Constants.swift */,
+				4E7FDF7E1C16F20B00E55E8A /* Extensions */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -328,7 +339,7 @@
 				4EF035501C08B9D700BEA55B /* LoremSwiftum.swift in Sources */,
 				4EC20CBC1B99587E00EDB4F9 /* NavigationBar.swift in Sources */,
 				4E04399C1BE91DEB006165CC /* PageViewController.swift in Sources */,
-				4E40FBA01BE8637800AD0F6B /* Extension+TZStackView.swift in Sources */,
+				4E40FBA01BE8637800AD0F6B /* Extensions.swift in Sources */,
 				4EEB5C091B95513300853F7C /* FeedViewController.swift in Sources */,
 				4E40FBA41BE8E3C400AD0F6B /* HomeViewController.swift in Sources */,
 				4E925E651B9B77F5003D92C5 /* FeedTableViewCell.swift in Sources */,
@@ -336,6 +347,7 @@
 				4E85851E1B62980B00E083F6 /* AppDelegate.swift in Sources */,
 				4EF0354E1C06539500BEA55B /* CommentTableViewCell.swift in Sources */,
 				4E40FBA21BE8661300AD0F6B /* CommentButton.swift in Sources */,
+				4E7FDF821C1820C500E55E8A /* DismissCommentsTransistion.swift in Sources */,
 				4EEB5C0B1B95513A00853F7C /* ColorPalette.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -124,7 +124,9 @@ extension FeedViewController: UIViewControllerTransitioningDelegate {
     }
     
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return nil
+        let targetCell = tableView.cellForRowAtIndexPath(targetCellIndexPath)!
+        let frame = tableView.convertRect(targetCell.frame, toView: view)
+        return DismissCommentsTransistion(destination: self, targetFrame: frame)
     }
 }
 

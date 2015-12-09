@@ -4,7 +4,8 @@ use_frameworks!
 inhibit_all_warnings!
 
 pod 'pop'
-pod 'JTHamburgerButton', '~> 1.0'
-pod 'Reveal-iOS-SDK', :configurations => ['Debug']
-pod 'TZStackView', '1.1.0'
+pod 'TZStackView'
 pod 'Cartography'
+pod 'EasyAnimation'
+pod 'JTHamburgerButton'
+pod 'Reveal-iOS-SDK', :configurations => ['Debug']

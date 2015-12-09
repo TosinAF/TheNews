@@ -6,12 +6,15 @@
 //  Copyright © 2015 Tosin Afolabi. All rights reserved.
 //
 
+import pop
 import UIKit
+
+private let animationDuration = 0.4
 
 class PresentCommentsTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
-    private let animationDuration = 0.4
     let source: FeedViewController
+    var d: CommentsViewController!
     
     init(source: FeedViewController) {
         self.source = source
@@ -40,56 +43,77 @@ class PresentCommentsTransition: NSObject, UIViewControllerAnimatedTransitioning
             else { fatalError("Wrong Cell Class used for Transistion") }
         targetCell.borderView.alpha = 1.0
         
-        let snapshot = targetCell.takeSnapshot()
-        let targetCellImageView = UIImageView(image: snapshot)
+        let targetCellImageView = UIImageView(image: targetCell.takeSnapshot())
         targetCellImageView.frame = source.tableView.convertRect(targetCell.frame, toView: containerView)
+        
+        targetCell.borderView.alpha = 0.0
+        
         containerView.addSubview(targetCellImageView)
+        
+        // Target Frame
         
         var targetFrame = targetCellImageView.frame
         targetFrame.origin.y = 64.0
         
+        let targetFrameAnim = POPSpringAnimation(propertyNamed: kPOPViewFrame)
+        targetFrameAnim.springBounciness = 3
+        targetFrameAnim.springSpeed = 10
+        targetFrameAnim.delegate = self
+        targetFrameAnim.toValue = NSValue(CGRect: targetFrame)
+        
         // Prepare Destination View
         
         destination.navigationBar.alpha = 0.0
+        destination.closeButton.alpha = 0.0
         destination.tableView.alpha = 0.0
         destination.tableHeaderView.alpha = 0.0
+        
+        d = destination
+        
+
+        // Perform Animations
+        // Animation Timings are weird, code isnt ideal but offers best experience
         
         UIView.animateWithDuration(0.2) { () -> Void in
             let _ = self.source.tableView.visibleCells.map({ $0.alpha = 0.0 })
         }
         
-        delay(0.2) { () -> () in
-            
-            UIView.animateWithDuration(0.4, delay: 0.0, options: .CurveEaseIn, animations: { () -> Void in
-                destination.navigationBar.alpha = 1.0
-                destination.tableView.alpha = 1.0
-                }, completion: nil)
-        }
+        targetCellImageView.pop_addAnimation(targetFrameAnim, forKey: "frame")
         
         UIView.animateWithDuration(animationDuration, animations: { () -> Void in
             
-            targetCellImageView.frame = targetFrame
             destination.navigationBar.alpha = 1.0
             
             }) { (finished) -> Void in
                 
-                
                 targetCellImageView.alpha = 0.0
-                destination.tableHeaderView.alpha = 1.0
+                //destination.tableHeaderView.alpha = 1.0
                 transitionContext.completeTransition(true)
+        }
+        
+        delay(0.2) { () -> () in
+            UIView.animateWithDuration(0.4, delay: 0.0, options: .CurveEaseIn, animations: { () -> Void in
+                destination.navigationBar.alpha = 1.0
+                //destination.tableView.alpha = 1.0
+                }, completion: nil)
+        }
+        
+        delay(0.6) { () -> () in
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                destination.closeButton.alpha = 1.0
+            })
         }
     }
     
 }
 
-private extension UIView {
+extension PresentCommentsTransition: POPAnimationDelegate {
     
-    func takeSnapshot() -> UIImage {
-        
-        UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.mainScreen().scale)
-        drawViewHierarchyInRect(self.bounds, afterScreenUpdates: true)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
+    func pop_animationDidStop(anim: POPAnimation!, finished: Bool) {
+        UIView.animateWithDuration(0.4, delay: 0.0, options: .CurveEaseIn, animations: { () -> Void in
+            //destination.navigationBar.alpha = 1.0
+            self.d!.tableView.alpha = 1.0
+            }, completion: nil)
     }
+
 }
