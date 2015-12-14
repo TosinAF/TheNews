@@ -52,8 +52,11 @@ final class FeedTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        layoutMargins = UIEdgeInsetsZero
+        
         selectionStyle = .None
+        layoutMargins = UIEdgeInsetsZero
+        backgroundColor = .whiteColor()
+        
         setupConstraints()
     }
     

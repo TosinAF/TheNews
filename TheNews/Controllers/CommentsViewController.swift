@@ -12,27 +12,19 @@ import JTHamburgerButton
 
 private let kCloseButtonSize: CGFloat = 40.0
 private let kCloseButtonMargin: CGFloat = 20.0
+private let kHeaderViewHeight: CGFloat = 100.0
 
 class CommentsViewController: UIViewController {
     
-    var comments = [Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph ]
+    let comments = [Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph]
     
-    lazy var navigationBar: UINavigationBar = {
-        let navigationBar = UINavigationBar()
-        navigationBar.items = [UINavigationItem(title: "COMMENTS")]
-        navigationBar.barTintColor = ColorPalette.DN.NavBar
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: UIFont(name: "Montserrat", size: 16.0)!]
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        return navigationBar
-    }()
-    
-    lazy var tableHeaderView: FeedTableViewCell = {
-        let tableHeaderView = FeedTableViewCell(style: .Default, reuseIdentifier: "feed")
-        tableHeaderView.titleLabel.text = "Academics are being hoodwinked into writing books nobody can buy"
-        tableHeaderView.detailLabel.text = "49 points by Andrew W."
-        tableHeaderView.borderView.alpha = 1.0
-        tableHeaderView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 100.0)
-        return tableHeaderView
+    lazy var headerView: FeedTableViewCell = {
+        let headerView = FeedTableViewCell(style: .Default, reuseIdentifier: "feed")
+        headerView.titleLabel.text = "Academics are being hoodwinked into writing books nobody can buy"
+        headerView.detailLabel.text = "49 points by Andrew W."
+        headerView.borderView.alpha = 1.0
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        return headerView
     }()
     
     lazy var tableView: UITableView = {
@@ -47,7 +39,6 @@ class CommentsViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.registerClass(CommentTableViewCell.self, forCellReuseIdentifier: "comment")
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.tableHeaderView = self.tableHeaderView
         return tableView
     }()
     
@@ -72,7 +63,7 @@ class CommentsViewController: UIViewController {
         
         super.viewDidLoad()
 
-        self.view.addSubview(navigationBar)
+        self.view.addSubview(headerView)
         self.view.addSubview(tableView)
         self.view.addSubview(closeButton)
         
@@ -81,15 +72,15 @@ class CommentsViewController: UIViewController {
     
     func setupConstriants() {
         
-        constrain(navigationBar) { navigationBar in
-            navigationBar.top == navigationBar.superview!.top
-            navigationBar.left == navigationBar.superview!.left
-            navigationBar.width == navigationBar.superview!.width
-            navigationBar.height == kNavigationBarHeight
+        constrain(headerView) { headerView in
+            headerView.top == headerView.superview!.top
+            headerView.left == headerView.superview!.left
+            headerView.width == headerView.superview!.width
+            headerView.height == kHeaderViewHeight
         }
         
         constrain(tableView) { tableView in
-            tableView.edges == inset(tableView.superview!.edges, kNavigationBarHeight, 0, 0, 0)
+            tableView.edges == inset(tableView.superview!.edges, kHeaderViewHeight, 0, 0, 0)
         }
         
         constrain(closeButton) { closeButton in

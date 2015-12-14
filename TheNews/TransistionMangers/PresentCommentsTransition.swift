@@ -14,14 +14,9 @@ private let animationDuration = 0.4
 class PresentCommentsTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
     let source: FeedViewController
-    var d: CommentsViewController!
     
     init(source: FeedViewController) {
         self.source = source
-    }
-    
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return animationDuration
     }
     
     // MARK: - UIViewControllerAnimatedTransitioning Methods
@@ -34,86 +29,45 @@ class PresentCommentsTransition: NSObject, UIViewControllerAnimatedTransitioning
         guard let containerView = transitionContext.containerView()
             else { fatalError("Container View Missing") }
         
+        // Configure Container
         containerView.addSubview(source.view)
         containerView.addSubview(destination.view)
         
-        // Take snapshot of Target Cell
-    
-        guard let targetCell = source.tableView.cellForRowAtIndexPath(source.targetCellIndexPath) as? FeedTableViewCell
-            else { fatalError("Wrong Cell Class used for Transistion") }
-        targetCell.borderView.alpha = 1.0
+        // Set Initial Contions
         
-        let targetCellImageView = UIImageView(image: targetCell.takeSnapshot())
-        targetCellImageView.frame = source.tableView.convertRect(targetCell.frame, toView: containerView)
+        var frame = containerView.bounds
+        frame.origin.y += containerView.bounds.height
+        frame.size.height -= 20
+        destination.view.frame = frame
+        destination.view.alpha = 0.0
         
-        targetCell.borderView.alpha = 0.0
+        // Create POP Animation
         
-        containerView.addSubview(targetCellImageView)
+        let routeTranslateYAnim = POPSpringAnimation(propertyNamed: kPOPLayerTranslationY)
+        routeTranslateYAnim.springBounciness = 1
+        routeTranslateYAnim.springSpeed = 15
+        routeTranslateYAnim.toValue = -(containerView.bounds.height - 20)
         
-        // Target Frame
+        // Round Top Corners
         
-        var targetFrame = targetCellImageView.frame
-        targetFrame.origin.y = 64.0
+        let cornerRadii = CGSizeMake(7.0, 7.0)
+        let maskPath = UIBezierPath(roundedRect: destination.view.bounds, byRoundingCorners: [.TopLeft, .TopRight], cornerRadii: cornerRadii)
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = containerView.bounds
+        maskLayer.path = maskPath.CGPath
         
-        let targetFrameAnim = POPSpringAnimation(propertyNamed: kPOPViewFrame)
-        targetFrameAnim.springBounciness = 3
-        targetFrameAnim.springSpeed = 10
-        targetFrameAnim.delegate = self
-        targetFrameAnim.toValue = NSValue(CGRect: targetFrame)
-        
-        // Prepare Destination View
-        
-        destination.navigationBar.alpha = 0.0
-        destination.closeButton.alpha = 0.0
-        destination.tableView.alpha = 0.0
-        destination.tableHeaderView.alpha = 0.0
-        
-        d = destination
-        
-
-        // Perform Animations
-        // Animation Timings are weird, code isnt ideal but offers best experience
-        
-        UIView.animateWithDuration(0.2) { () -> Void in
-            let _ = self.source.tableView.visibleCells.map({ $0.alpha = 0.0 })
-        }
-        
-        targetCellImageView.pop_addAnimation(targetFrameAnim, forKey: "frame")
+        destination.view.layer.pop_addAnimation(routeTranslateYAnim, forKey: "transform.translation.y")
         
         UIView.animateWithDuration(animationDuration, animations: { () -> Void in
-            
-            destination.navigationBar.alpha = 1.0
+            destination.view.alpha = 1.0
+            destination.view.layer.mask = maskLayer
             
             }) { (finished) -> Void in
-                
-                targetCellImageView.alpha = 0.0
-                //destination.tableHeaderView.alpha = 1.0
                 transitionContext.completeTransition(true)
         }
-        
-        delay(0.2) { () -> () in
-            UIView.animateWithDuration(0.4, delay: 0.0, options: .CurveEaseIn, animations: { () -> Void in
-                destination.navigationBar.alpha = 1.0
-                //destination.tableView.alpha = 1.0
-                }, completion: nil)
-        }
-        
-        delay(0.6) { () -> () in
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
-                destination.closeButton.alpha = 1.0
-            })
-        }
     }
     
-}
-
-extension PresentCommentsTransition: POPAnimationDelegate {
-    
-    func pop_animationDidStop(anim: POPAnimation!, finished: Bool) {
-        UIView.animateWithDuration(0.4, delay: 0.0, options: .CurveEaseIn, animations: { () -> Void in
-            //destination.navigationBar.alpha = 1.0
-            self.d!.tableView.alpha = 1.0
-            }, completion: nil)
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+        return animationDuration
     }
-
 }

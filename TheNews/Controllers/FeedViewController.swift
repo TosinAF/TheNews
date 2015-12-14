@@ -105,6 +105,8 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
             commentsViewController.modalPresentationStyle = .Custom
             commentsViewController.transitioningDelegate = self
             self.presentViewController(commentsViewController, animated: true, completion:nil)
+            
+            //self.navigationController?.pushViewController(CommentsViewController(), animated: true)
         }
         
         return cell
@@ -128,6 +130,12 @@ extension FeedViewController: UIViewControllerTransitioningDelegate {
         let frame = tableView.convertRect(targetCell.frame, toView: view)
         return DismissCommentsTransistion(destination: self, targetFrame: frame)
     }
+}
+
+extension FeedViewController: UIViewControllerInteractiveTransitioning {
+    
+    func 
+    
 }
 
 

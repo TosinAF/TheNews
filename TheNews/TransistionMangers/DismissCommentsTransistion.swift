@@ -13,11 +13,14 @@ private let animationDuration = 0.4
 
 class DismissCommentsTransistion: NSObject, UIViewControllerAnimatedTransitioning {
     
+    // Intresting stuff about custom view controller transistion
+    // http://stackoverflow.com/questions/24338700/from-view-controller-disappears-using-uiviewcontrollercontexttransitioning
+    
     let targetFrame: CGRect
-    let destination: FeedViewController
+    let d: FeedViewController
     
     init(destination: FeedViewController, targetFrame: CGRect) {
-        self.destination = destination
+        self.d = destination
         self.targetFrame = targetFrame
     }
     
@@ -32,52 +35,30 @@ class DismissCommentsTransistion: NSObject, UIViewControllerAnimatedTransitionin
         guard let source = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as? CommentsViewController
             else { fatalError("Wrong Destination View Controller Type used for Transistion") }
         
-       /* guard let destination = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-            else { fatalError("Wrong Destination View Controller Type used for Transistion") }*/
+        guard let destination = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
+            else { fatalError("Wrong Destination View Controller Type used for Transistion") }
         
         guard let containerView = transitionContext.containerView()
             else { fatalError("Container View Missing") }
         
-        containerView.addSubview(source.view)
-        containerView.addSubview(destination.view)
+        // Configure Container
         
-        source.tableHeaderView.borderView.alpha = 0.0
+        //containerView.addSubview(source.view)
+        //containerView.addSubview(destination.view)
         
-        var initialFrame = source.tableHeaderView.frame
-        initialFrame.origin.y = 64
+        // Create POP Animations
         
-        let targetCellImageView = UIImageView(image: source.tableHeaderView.takeSnapshot())
-        targetCellImageView.frame = initialFrame
-        containerView.addSubview(targetCellImageView)
+        let routeTranslateYAnim = POPBasicAnimation(propertyNamed: kPOPLayerTranslationY)
+        routeTranslateYAnim.toValue = 30
         
-        delay(0.2) {
-            UIView.animateWithDuration(0.2) { () -> Void in
-                let _ = self.destination.tableView.visibleCells.map({ $0.alpha = 1.0 })
-                            }
-        }
+        source.view.layer.pop_addAnimation(routeTranslateYAnim, forKey: "transform.translation.y")
         
-        UIView.animateWithDuration(0.4, animations: { () -> Void in
-            
+        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
             source.view.alpha = 0.0
-            self.destination.view.alpha = 1.0
-            
-            //source.tableHeaderView.alpha = 0.0
-            
-            targetCellImageView.frame = self.targetFrame
-            targetCellImageView.alpha = 0.0
-            
-            
-            
-            
-            
+            destination.view.alpha = 1.0
             }) { (finished) -> Void in
-                
-                targetCellImageView.alpha = 0.0
                 transitionContext.completeTransition(true)
-                UIApplication.sharedApplication().keyWindow!.addSubview(self.destination.view)
+                UIApplication.sharedApplication().keyWindow!.addSubview(self.d.view)
         }
-        
-        
-    
     }
 }
