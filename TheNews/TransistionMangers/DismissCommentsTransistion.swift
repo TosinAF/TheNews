@@ -13,17 +13,6 @@ private let animationDuration = 0.4
 
 class DismissCommentsTransistion: NSObject, UIViewControllerAnimatedTransitioning {
     
-    // Intresting stuff about custom view controller transistion
-    // http://stackoverflow.com/questions/24338700/from-view-controller-disappears-using-uiviewcontrollercontexttransitioning
-    
-    let targetFrame: CGRect
-    let d: FeedViewController
-    
-    init(destination: FeedViewController, targetFrame: CGRect) {
-        self.d = destination
-        self.targetFrame = targetFrame
-    }
-    
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return animationDuration
     }
@@ -32,33 +21,39 @@ class DismissCommentsTransistion: NSObject, UIViewControllerAnimatedTransitionin
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         
-        guard let source = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as? CommentsViewController
-            else { fatalError("Wrong Destination View Controller Type used for Transistion") }
+        guard let source = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as? CommentsViewController,
+                  destination = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey),
+                  containerView = transitionContext.containerView()
         
-        guard let destination = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-            else { fatalError("Wrong Destination View Controller Type used for Transistion") }
+        else { fatalError("Some Initial Conditions are missing") }
         
-        guard let containerView = transitionContext.containerView()
-            else { fatalError("Container View Missing") }
+        containerView.addSubview(source.view)
+        containerView.addSubview(destination.view)
         
-        // Configure Container
+        // Initial Contions
+        destination.view.alpha = 0.8
+        containerView.backgroundColor = UIColor.darkGrayColor()
         
-        //containerView.addSubview(source.view)
-        //containerView.addSubview(destination.view)
+        var finalFrame = containerView.bounds
+        finalFrame.origin.y = containerView.bounds.height
         
         // Create POP Animations
+        let frameAnim = POPSpringAnimation(propertyNamed: kPOPViewFrame)
+        frameAnim.springBounciness = 1
+        frameAnim.springSpeed = 15
+        frameAnim.toValue = NSValue(CGRect: finalFrame)
         
-        let routeTranslateYAnim = POPBasicAnimation(propertyNamed: kPOPLayerTranslationY)
-        routeTranslateYAnim.toValue = 30
-        
-        source.view.layer.pop_addAnimation(routeTranslateYAnim, forKey: "transform.translation.y")
+        source.view.pop_addAnimation(frameAnim, forKey: "view.frame")
         
         UIView.animateWithDuration(animationDuration, animations: { () -> Void in
+
             source.view.alpha = 0.0
-            destination.view.alpha = 1.0
+            destination.view.alpha = 1.8
+            
             }) { (finished) -> Void in
+                
                 transitionContext.completeTransition(true)
-                UIApplication.sharedApplication().keyWindow!.addSubview(self.d.view)
+                UIApplication.sharedApplication().keyWindow!.addSubview(destination.view)
         }
     }
 }

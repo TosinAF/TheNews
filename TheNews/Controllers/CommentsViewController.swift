@@ -18,6 +18,8 @@ class CommentsViewController: UIViewController {
     
     let comments = [Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph]
     
+    var interactivePopTransition: UIPercentDrivenInteractiveTransition?
+    
     lazy var headerView: FeedTableViewCell = {
         let headerView = FeedTableViewCell(style: .Default, reuseIdentifier: "feed")
         headerView.titleLabel.text = "Academics are being hoodwinked into writing books nobody can buy"
@@ -63,9 +65,9 @@ class CommentsViewController: UIViewController {
         
         super.viewDidLoad()
 
-        self.view.addSubview(headerView)
-        self.view.addSubview(tableView)
-        self.view.addSubview(closeButton)
+        view.addSubview(headerView)
+        view.addSubview(tableView)
+        view.addSubview(closeButton)
         
         setupConstriants()
     }

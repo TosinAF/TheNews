@@ -13,50 +13,44 @@ private let animationDuration = 0.4
 
 class PresentCommentsTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
-    let source: FeedViewController
-    
-    init(source: FeedViewController) {
-        self.source = source
-    }
-    
     // MARK: - UIViewControllerAnimatedTransitioning Methods
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         
-        guard let destination = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as? CommentsViewController
-            else { fatalError("Wrong Destination View Controller Type used for Transistion") }
+        guard let containerView = transitionContext.containerView(),
+              let source = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey),
+              let destination = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
         
-        guard let containerView = transitionContext.containerView()
-            else { fatalError("Container View Missing") }
+        else { fatalError("Some Initial Conditions are missing") }
         
-        // Configure Container
         containerView.addSubview(source.view)
         containerView.addSubview(destination.view)
         
-        // Set Initial Contions
+        // Initial Contions
+        var initialFrame = containerView.bounds
+        initialFrame.origin.y = containerView.bounds.height
+        initialFrame.size.height -= 20
         
-        var frame = containerView.bounds
-        frame.origin.y += containerView.bounds.height
-        frame.size.height -= 20
-        destination.view.frame = frame
+        var finalFrame = initialFrame
+        finalFrame.origin.y = 20
+        
+        destination.view.frame = initialFrame
         destination.view.alpha = 0.0
         
         // Create POP Animation
-        
-        let routeTranslateYAnim = POPSpringAnimation(propertyNamed: kPOPLayerTranslationY)
-        routeTranslateYAnim.springBounciness = 1
-        routeTranslateYAnim.springSpeed = 15
-        routeTranslateYAnim.toValue = -(containerView.bounds.height - 20)
+        let frameAnim = POPSpringAnimation(propertyNamed: kPOPViewFrame)
+        frameAnim.springBounciness = 1
+        frameAnim.springSpeed = 15
+        frameAnim.toValue = NSValue(CGRect: finalFrame)
         
         // Round Top Corners
-        
         let cornerRadii = CGSizeMake(7.0, 7.0)
         let maskPath = UIBezierPath(roundedRect: destination.view.bounds, byRoundingCorners: [.TopLeft, .TopRight], cornerRadii: cornerRadii)
         let maskLayer = CAShapeLayer()
         maskLayer.frame = containerView.bounds
         maskLayer.path = maskPath.CGPath
         
-        destination.view.layer.pop_addAnimation(routeTranslateYAnim, forKey: "transform.translation.y")
+        destination.view.layer.pop_addAnimation(frameAnim, forKey: "view.frame")
         
         UIView.animateWithDuration(animationDuration, animations: { () -> Void in
             destination.view.alpha = 1.0

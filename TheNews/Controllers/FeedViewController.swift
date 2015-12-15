@@ -14,11 +14,9 @@ class FeedViewController: UIViewController, Feed {
     
     let type: FeedType
     
-    var targetCellIndexPath = NSIndexPath()
-    
     lazy var navigationBar: NavigationBar = {
         let navigationBar = NavigationBar(titles: self.type.filters)
-        navigationBar.barTintColor = self.type.colors.NavBar
+        navigationBar.barTintColor = self.type.colors.Brand
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         return navigationBar
     }()
@@ -99,14 +97,10 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.commentButtonClosure = {
             
-            self.targetCellIndexPath = indexPath
-            
             let commentsViewController = CommentsViewController()
             commentsViewController.modalPresentationStyle = .Custom
             commentsViewController.transitioningDelegate = self
             self.presentViewController(commentsViewController, animated: true, completion:nil)
-            
-            //self.navigationController?.pushViewController(CommentsViewController(), animated: true)
         }
         
         return cell
@@ -119,23 +113,13 @@ extension FeedViewController: UIViewControllerTransitioningDelegate {
     
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
-        guard let s = source as? FeedViewController
-            else { fatalError("Wrong Source View Controller Type used for Transistion") }
-        
-        return PresentCommentsTransition(source: s)
+        return PresentCommentsTransition()
     }
     
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let targetCell = tableView.cellForRowAtIndexPath(targetCellIndexPath)!
-        let frame = tableView.convertRect(targetCell.frame, toView: view)
-        return DismissCommentsTransistion(destination: self, targetFrame: frame)
+        
+        return DismissCommentsTransistion()
     }
-}
-
-extension FeedViewController: UIViewControllerInteractiveTransitioning {
-    
-    func 
-    
 }
 
 
