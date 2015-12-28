@@ -1,4 +1,5 @@
 PODS:
+  - AWPercentDrivenInteractiveTransition (0.2.0)
   - Cartography (0.6.0)
   - EasyAnimation (1.0.2)
   - JTHamburgerButton (1.0.5)
@@ -7,6 +8,7 @@ PODS:
   - TZStackView (1.1.0)
 
 DEPENDENCIES:
+  - AWPercentDrivenInteractiveTransition (~> 0.1)
   - Cartography
   - EasyAnimation
   - JTHamburgerButton
@@ -15,6 +17,7 @@ DEPENDENCIES:
   - TZStackView
 
 SPEC CHECKSUMS:
+  AWPercentDrivenInteractiveTransition: 26f1c1f11777e2f6171819a13b458dda021db3ad
   Cartography: 70af183a248547694a8cfaa6b989cb7e04589985
   EasyAnimation: 9615e40f58aa7d8d6a67de66e0edda1903ffa990
   JTHamburgerButton: 9a41c7d051c72590a9d2c18416d84d1b912f12e3

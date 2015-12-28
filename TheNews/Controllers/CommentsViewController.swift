@@ -16,10 +16,10 @@ private let kHeaderViewHeight: CGFloat = 100.0
 
 class CommentsViewController: UIViewController {
     
+    let type: FeedType
+    
     let comments = [Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph]
-    
-    var interactivePopTransition: UIPercentDrivenInteractiveTransition?
-    
+
     lazy var headerView: FeedTableViewCell = {
         let headerView = FeedTableViewCell(style: .Default, reuseIdentifier: "feed")
         headerView.titleLabel.text = "Academics are being hoodwinked into writing books nobody can buy"
@@ -48,13 +48,22 @@ class CommentsViewController: UIViewController {
         let button = JTHamburgerButton(frame: .zero)
         button.currentMode = .Cross
         button.lineColor = .whiteColor()
-        button.backgroundColor = ColorPalette.DN.Light
+        button.backgroundColor = self.type.colors.Light
         button.layer.cornerRadius = kCloseButtonSize / 2
         button.configure(lineWidth: 25.0, lineHeight: 1.0, lineSpacing: 7.0)
         button.addTarget(self, action: "dismiss", forControlEvents: .TouchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    init(type: FeedType) {
+        self.type = type
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -64,12 +73,18 @@ class CommentsViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        view.backgroundColor = .whiteColor()
 
         view.addSubview(headerView)
         view.addSubview(tableView)
         view.addSubview(closeButton)
         
         setupConstriants()
+
+        if let navController = navigationController as? NavigationController {
+            view.addGestureRecognizer(navController.panGesture)
+        }
     }
     
     func setupConstriants() {
@@ -94,7 +109,12 @@ class CommentsViewController: UIViewController {
     }
     
     func dismiss() {
-        dismissViewControllerAnimated(true, completion: nil)
+        
+        if let navController = navigationController as? NavigationController {
+            navController.setPopAnimationToNotInteractive()
+        }
+        
+        navigationController?.popViewControllerAnimated(true)
     }
 }
 
@@ -109,6 +129,7 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("comment", forIndexPath: indexPath) as! CommentTableViewCell
         cell.textView.text = comments[indexPath.row]
+        cell.authorTextView.textColor = self.type.colors.Light
         return cell
     }
 }

@@ -95,31 +95,10 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.detailLabel.text = "49 points by Andrew W."
         
-        cell.commentButtonClosure = {
-            
-            let commentsViewController = CommentsViewController()
-            commentsViewController.modalPresentationStyle = .Custom
-            commentsViewController.transitioningDelegate = self
-            self.presentViewController(commentsViewController, animated: true, completion:nil)
+        cell.commentButtonClosure = { [unowned self] in
+            self.navigationController?.pushViewController(CommentsViewController(type: self.type), animated: true)
         }
         
         return cell
     }
 }
-
-// MARK: - Transitioning Delegate
-
-extension FeedViewController: UIViewControllerTransitioningDelegate {
-    
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        return PresentCommentsTransition()
-    }
-    
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        return DismissCommentsTransistion()
-    }
-}
-
-
