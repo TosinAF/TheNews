@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import Unbox
+import SwiftyJSON
 import Cartography
 import JTHamburgerButton
 
 class FeedViewController: UIViewController, Feed {
     
     let type: FeedType
+    
+    var posts = [Post]()
     
     lazy var navigationBar: NavigationBar = {
         let navigationBar = NavigationBar(titles: self.type.filters)
@@ -55,6 +59,31 @@ class FeedViewController: UIViewController, Feed {
         view.addSubview(tableView)
         
         setupConstriants()
+        
+        DesignerNewsProvider.request(.Stories) { (result) in
+            switch result {
+                
+            case let .Success(moyaResponse):
+                
+                let data = moyaResponse.data
+                let json = JSON(data: data)
+            
+                var posts = [Post]()
+                for (_, story): (String, JSON) in json["stories"] {
+                    let post = Post()
+                    DataMapper.map(post, data: story)
+                    posts.append(post)
+                }
+                
+                self.posts = posts
+                self.tableView.reloadData()
+            
+            case .Failure(let error):
+                print(error)
+                break
+            }
+        }
+        
     }
     
     func setupConstriants() {
@@ -77,7 +106,7 @@ class FeedViewController: UIViewController, Feed {
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return posts.count
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -87,13 +116,10 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("feed", forIndexPath: indexPath) as! FeedTableViewCell
         
-        if indexPath.row % 2 == 0 {
-            cell.titleLabel.text = "Open-source Playstation 4 SDK"
-        } else {
-            cell.titleLabel.text = "Academics are being hoodwinked into writing books nobody can buy"
-        }
-        
-        cell.detailLabel.text = "49 points by Andrew W."
+        let post = posts[indexPath.row]
+        cell.titleLabel.text = post.title
+        cell.detailLabel.text = "\(post.points) points by \(post.author)"
+        cell.commentCount = post.commentCount
         
         cell.commentButtonClosure = { [unowned self] in
             self.navigationController?.pushViewController(CommentsViewController(type: self.type), animated: true)

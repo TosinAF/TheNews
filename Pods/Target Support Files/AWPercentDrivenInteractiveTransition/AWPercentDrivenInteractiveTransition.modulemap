@@ -1,6 +1,0 @@
-framework module AWPercentDrivenInteractiveTransition {
-  umbrella header "AWPercentDrivenInteractiveTransition-umbrella.h"
-
-  export *
-  module * { export * }
-}

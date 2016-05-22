@@ -4,6 +4,9 @@ use_frameworks!
 inhibit_all_warnings!
 
 pod 'pop'
+pod 'Moya'
+pod 'Unbox'
+pod 'SwiftyJSON'
 pod 'TZStackView'
 pod 'Cartography'
 pod 'EasyAnimation'

@@ -1,10 +1,9 @@
-EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Reveal-iOS-SDK/Reveal-Framework-iOS-1.6.2"
+FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/Reveal-iOS-SDK/Reveal-Framework-iOS-1.6.2"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK" "${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK/Reveal"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$CONFIGURATION_BUILD_DIR/AWPercentDrivenInteractiveTransition.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/Cartography.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/EasyAnimation.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/JTHamburgerButton.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/TZStackView.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/pop.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"z" -framework "AWPercentDrivenInteractiveTransition" -framework "CFNetwork" -framework "Cartography" -framework "CoreGraphics" -framework "EasyAnimation" -framework "JTHamburgerButton" -framework "QuartzCore" -framework "Reveal" -framework "TZStackView" -framework "pop"
+OTHER_CFLAGS = $(inherited) -iquote "$CONFIGURATION_BUILD_DIR/Alamofire.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/Cartography.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/EasyAnimation.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/JTHamburgerButton.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/Moya.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/Result.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/SwiftyJSON.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/TZStackView.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/Unbox.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/pop.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK" -isystem "${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK/Reveal"
+OTHER_LDFLAGS = $(inherited) -l"z" -framework "Alamofire" -framework "CFNetwork" -framework "Cartography" -framework "CoreGraphics" -framework "EasyAnimation" -framework "JTHamburgerButton" -framework "Moya" -framework "QuartzCore" -framework "Result" -framework "Reveal" -framework "SwiftyJSON" -framework "TZStackView" -framework "Unbox" -framework "pop"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_FRAMEWORK_BUILD_PATH = $(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Pods
 PODS_ROOT = ${SRCROOT}/Pods

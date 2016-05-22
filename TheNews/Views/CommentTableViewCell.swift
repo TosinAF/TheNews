@@ -14,7 +14,7 @@ class CommentTableViewCell: UITableViewCell {
 
     lazy var textView: UITextView = {
         let textView = UITextView(frame: .zero, textContainer: nil)
-        textView.font = UIFont.systemFontOfSize(13.0)
+        textView.font = UIFont.systemFontOfSize(14.0)
         textView.textColor = UIColor(red:0.424,  green:0.478,  blue:0.537, alpha:1)
         textView.text = "Mountains revaluation dead ideal philosophy faithful fearful dead ultimate pinnacle suicide. Ascetic prejudice endless self christianity truth of ultimate ultimate."
         textView.scrollEnabled = false
@@ -53,15 +53,7 @@ class CommentTableViewCell: UITableViewCell {
         contentView.addSubview(stackView)
         
         constrain(stackView) { stackView in
-            stackView.edges == inset(stackView.superview!.edges, 10, 10, 10, 10)
+            stackView.edges == inset(stackView.superview!.edges, 10, 15, 10, 15)
         }
-    }
-}
-
-class PaddedLabel: UILabel {
-
-    override func drawTextInRect(rect: CGRect) {
-        let insets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: -10)
-        super.drawTextInRect(UIEdgeInsetsInsetRect(rect, insets))
     }
 }

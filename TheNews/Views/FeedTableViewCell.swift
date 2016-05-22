@@ -18,6 +18,12 @@ final class FeedTableViewCell: UITableViewCell {
     
     var commentButtonClosure: (() -> Void)?
     
+    var commentCount: Int = 0 {
+        willSet(newCount) {
+            commentsButton.countLabel.text = "\(newCount)"
+        }
+    }
+    
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
