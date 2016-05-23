@@ -84,7 +84,6 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods/AFNetworking.framework"
   install_framework "Pods/Alamofire.framework"
   install_framework "Pods/Argo.framework"
   install_framework "Pods/Cartography.framework"
@@ -96,10 +95,10 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/SwiftyJSON.framework"
   install_framework "Pods/TOWebViewController.framework"
   install_framework "Pods/TZStackView.framework"
+  install_framework "Pods/libHN.framework"
   install_framework "Pods/pop.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods/AFNetworking.framework"
   install_framework "Pods/Alamofire.framework"
   install_framework "Pods/Argo.framework"
   install_framework "Pods/Cartography.framework"
@@ -111,5 +110,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/SwiftyJSON.framework"
   install_framework "Pods/TOWebViewController.framework"
   install_framework "Pods/TZStackView.framework"
+  install_framework "Pods/libHN.framework"
   install_framework "Pods/pop.framework"
 fi

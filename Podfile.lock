@@ -1,19 +1,4 @@
 PODS:
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
-    - AFNetworking/NSURLSession
   - Alamofire (3.3.1)
   - Argo (3.0.1)
   - Cartography (0.6.0)
@@ -24,6 +9,7 @@ PODS:
     - Argo (~> 3.0)
     - Result (~> 2.0)
   - JTHamburgerButton (1.0.5)
+  - libHN (4.1.0)
   - Moya (6.4.0):
     - Moya/Core (= 6.4.0)
   - Moya/Core (6.4.0):
@@ -39,11 +25,11 @@ PODS:
   - TZStackView (1.1.0)
 
 DEPENDENCIES:
-  - AFNetworking
   - Cartography
   - EasyAnimation
   - Heimdallr (~> 3.2)
   - JTHamburgerButton
+  - libHN (~> 4.1)
   - Moya
   - pop
   - Reveal-iOS-SDK
@@ -52,13 +38,13 @@ DEPENDENCIES:
   - TZStackView
 
 SPEC CHECKSUMS:
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
   Argo: 22c5d62b7967020a641468c91dc9488bea9523b8
   Cartography: 70af183a248547694a8cfaa6b989cb7e04589985
   EasyAnimation: 9615e40f58aa7d8d6a67de66e0edda1903ffa990
   Heimdallr: 47da8957bd089006ab14b3f8fcedd5d570035183
   JTHamburgerButton: 9a41c7d051c72590a9d2c18416d84d1b912f12e3
+  libHN: ec0205556a35d760b5b6a7804699f67276d6633a
   Moya: 4d526954c8afd79820991393d40d7d8af756ceee
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   Result: 9e75e1111c774c6ac594e14907b15057053a7959

@@ -36,7 +36,6 @@ public extension JTHamburgerButton {
     }
 }
 
-
 // MARK: - Extension+SFSafariViewController
 
 @available(iOS 9.0, *)

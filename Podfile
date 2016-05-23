@@ -10,6 +10,7 @@ pod 'TZStackView'
 pod 'Cartography'
 pod 'EasyAnimation'
 pod 'JTHamburgerButton'
-pod 'TOWebViewController', '~> 2.2'
+pod 'libHN', '~> 4.1'
 pod 'Heimdallr', '~> 3.2'
+pod 'TOWebViewController', '~> 2.2'
 pod 'Reveal-iOS-SDK', :configurations => ['Debug']
