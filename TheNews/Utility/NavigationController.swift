@@ -70,12 +70,22 @@ extension NavigationController: UINavigationControllerDelegate {
     
     public func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation,
         fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-            
-            if (operation == .Push) {
-                return PushCommentsTransition()
-            } else {
-                return PopCommentsTransistion(isInteractive: popAnimationIsInteractive)
+        
+        if #available(iOS 9.0, *) {
+            if fromVC.dynamicType === SafariViewController.self || toVC.dynamicType === SafariViewController.self {
+                return nil
             }
+        } else {
+            if fromVC.dynamicType === WebViewController.self || toVC.dynamicType === WebViewController.self {
+                return nil
+            }
+        }
+            
+        if (operation == .Push) {
+            return PushCommentsTransition()
+        } else {
+            return PopCommentsTransistion(isInteractive: popAnimationIsInteractive)
+        }
     }
     
     public func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {

@@ -9,6 +9,8 @@
 // MARK: - Extension+TZStackView
 
 import TZStackView
+import SafariServices
+import TOWebViewController
 
 public extension TZStackView {
     
@@ -34,22 +36,25 @@ public extension JTHamburgerButton {
     }
 }
 
-// MARK: - Extension+UIView
 
-import UIKit
+// MARK: - Extension+SFSafariViewController
 
-extension UIView {
+@available(iOS 9.0, *)
+class SafariViewController: SFSafariViewController {
     
-    func takeSnapshot() -> UIImage {
-        
-        UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.mainScreen().scale)
-        drawViewHierarchyInRect(self.bounds, afterScreenUpdates: true)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: false)
     }
 }
 
+// MARK: - Extension+TOWebViewController
 
-
-
+class WebViewController: TOWebViewController {
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: false)
+    }
+}

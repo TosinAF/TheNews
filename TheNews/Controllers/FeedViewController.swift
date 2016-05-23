@@ -7,16 +7,16 @@
 //
 
 import UIKit
-import Unbox
 import SwiftyJSON
 import Cartography
+import SafariServices
 import JTHamburgerButton
 
 class FeedViewController: UIViewController, Feed {
     
     let type: FeedType
     
-    var posts = [Post]()
+    let viewModel: FeedViewModel
     
     lazy var navigationBar: NavigationBar = {
         let navigationBar = NavigationBar(titles: self.type.filters)
@@ -39,6 +39,7 @@ class FeedViewController: UIViewController, Feed {
     
     init(type: FeedType) {
         self.type = type
+        self.viewModel = FeedViewModel(type: self.type)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -49,6 +50,7 @@ class FeedViewController: UIViewController, Feed {
     override func viewWillAppear(animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
     }
     
     override func viewDidLoad() {
@@ -60,30 +62,11 @@ class FeedViewController: UIViewController, Feed {
         
         setupConstriants()
         
-        DesignerNewsProvider.request(.Stories) { (result) in
-            switch result {
-                
-            case let .Success(moyaResponse):
-                
-                let data = moyaResponse.data
-                let json = JSON(data: data)
-            
-                var posts = [Post]()
-                for (_, story): (String, JSON) in json["stories"] {
-                    let post = Post()
-                    DataMapper.map(post, data: story)
-                    posts.append(post)
-                }
-                
-                self.posts = posts
-                self.tableView.reloadData()
-            
-            case .Failure(let error):
-                print(error)
-                break
-            }
+        viewModel.completionBlock = {
+            self.tableView.reloadData()
         }
         
+        viewModel.loadPosts()
     }
     
     func setupConstriants() {
@@ -106,7 +89,7 @@ class FeedViewController: UIViewController, Feed {
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
+        return viewModel.numberOfPosts()
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -116,15 +99,41 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("feed", forIndexPath: indexPath) as! FeedTableViewCell
         
-        let post = posts[indexPath.row]
+        let post = viewModel.postAtIndex(indexPath.row)
         cell.titleLabel.text = post.title
-        cell.detailLabel.text = "\(post.points) points by \(post.author)"
+        cell.detailLabel.text = post.detailText
         cell.commentCount = post.commentCount
         
         cell.commentButtonClosure = { [unowned self] in
-            self.navigationController?.pushViewController(CommentsViewController(type: self.type), animated: true)
+            self.navigationController?.pushViewController(CommentsViewController(type: self.type, post: post), animated: true)
         }
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let post = viewModel.postAtIndex(indexPath.row)
+        let url = NSURL(string: post.url)!
+        
+        if #available(iOS 9.0, *) {
+            
+            let vc = SafariViewController(URL: url)
+            vc.delegate = self
+            vc.view.tintColor = type.colors.Brand
+            navigationController?.pushViewController(vc, animated: true)
+            
+        } else {
+            
+            let vc = WebViewController(URL: url)
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}
+
+@available(iOS 9.0, *)
+extension FeedViewController: SFSafariViewControllerDelegate {
+
+    func safariViewControllerDidFinish(controller: SFSafariViewController) {
+        navigationController?.popViewControllerAnimated(true)
     }
 }

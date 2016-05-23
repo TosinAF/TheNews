@@ -6,9 +6,6 @@
 //  Copyright © 2016 Tosin Afolabi. All rights reserved.
 //
 
-import UIKit
-import Unbox
-
 class Post {
     
     var id = ""
@@ -16,5 +13,9 @@ class Post {
     var author = ""
     var points = 0
     var commentCount = 0
-    var storyURL = ""
+    var url = ""
+    
+    var detailText: String {
+        return "\(points) points by \(author)"
+    }
 }

@@ -1,7 +1,0 @@
-#include "Unbox.xcconfig"
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/Unbox" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK" "${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK/Reveal"
-OTHER_LDFLAGS = ${UNBOX_OTHER_LDFLAGS}
-OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
-PODS_ROOT = ${SRCROOT}
-SKIP_INSTALL = YES

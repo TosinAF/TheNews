@@ -17,13 +17,14 @@ private let kHeaderViewHeight: CGFloat = 100.0
 class CommentsViewController: UIViewController {
     
     let type: FeedType
+    let post: Post
     
     let comments = [Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph]
 
     lazy var headerView: FeedTableViewCell = {
         let headerView = FeedTableViewCell(style: .Default, reuseIdentifier: "feed")
-        headerView.titleLabel.text = "Academics are being hoodwinked into writing books nobody can buy"
-        headerView.detailLabel.text = "49 points by Andrew W."
+        headerView.titleLabel.text = self.post.title
+        headerView.detailLabel.text = self.post.detailText
         headerView.borderView.alpha = 1.0
         headerView.translatesAutoresizingMaskIntoConstraints = false
         return headerView
@@ -56,8 +57,9 @@ class CommentsViewController: UIViewController {
         return button
     }()
     
-    init(type: FeedType) {
+    init(type: FeedType, post: Post) {
         self.type = type
+        self.post = post
         super.init(nibName: nil, bundle: nil)
     }
 

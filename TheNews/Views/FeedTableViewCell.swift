@@ -76,7 +76,7 @@ final class FeedTableViewCell: UITableViewCell {
         infoStackView.configure(distributon: .Fill, alignment: .Top, axis: .Vertical, spacing: 8.0)
         
         let stackView = TZStackView(arrangedSubviews: [infoStackView, commentsButton])
-        stackView.configure(distributon: .Fill, alignment: .Center, axis: .Horizontal, spacing: 0.0)
+        stackView.configure(distributon: .Fill, alignment: .Center, axis: .Horizontal, spacing: 25.0)
         
         contentView.addSubview(stackView)
         contentView.addSubview(borderView)
