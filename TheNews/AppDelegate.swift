@@ -10,17 +10,18 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    lazy var window: UIWindow? = {
-        let window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window.backgroundColor = ColorPalette.Grey.Light
-        window.rootViewController = NavigationController(rootViewController: HomeViewController())
-        return window
-    }()
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        UIApplication.sharedApplication().statusBarStyle = .LightContent;
+    var window: UIWindow?
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.backgroundColor = ColorPalette.Grey.Light
+        window?.rootViewController = NavigationController(rootViewController: HomeViewController())
         window?.makeKeyAndVisible()
+
+        UIApplication.shared.statusBarStyle = .lightContent
+
         return true
     }
 }

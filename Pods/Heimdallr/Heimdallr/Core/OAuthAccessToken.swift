@@ -1,4 +1,3 @@
-import Argo
 import Result
 
 /// An access token is used for authorizing requests to the resource endpoint.
@@ -11,7 +10,7 @@ public class OAuthAccessToken: NSObject {
     public let tokenType: String
 
     /// The access token's expiration date.
-    public let expiresAt: NSDate?
+    public let expiresAt: Date?
 
     /// The refresh token.
     public let refreshToken: String?
@@ -25,7 +24,7 @@ public class OAuthAccessToken: NSObject {
     ///
     /// - returns: A new access token initialized with access token, type,
     ///     expiration date and refresh token.
-    public init(accessToken: String, tokenType: String, expiresAt: NSDate? = nil, refreshToken: String? = nil) {
+    public init(accessToken: String, tokenType: String, expiresAt: Date? = nil, refreshToken: String? = nil) {
         self.accessToken = accessToken
         self.tokenType = tokenType
         self.expiresAt = expiresAt
@@ -41,7 +40,7 @@ public class OAuthAccessToken: NSObject {
     ///
     /// - returns: A new access token with this access token's values for
     ///     properties where new ones are not provided.
-    public func copy(accessToken accessToken: String? = nil, tokenType: String? = nil, expiresAt: NSDate?? = nil, refreshToken: String?? = nil) -> OAuthAccessToken {
+    public func copy(accessToken: String? = nil, tokenType: String? = nil, expiresAt: Date?? = nil, refreshToken: String?? = nil) -> OAuthAccessToken {
         return OAuthAccessToken(accessToken: accessToken ?? self.accessToken,
                                   tokenType: tokenType ?? self.tokenType,
                                   expiresAt: expiresAt ?? self.expiresAt,
@@ -56,34 +55,32 @@ public func == (lhs: OAuthAccessToken, rhs: OAuthAccessToken) -> Bool {
         && lhs.refreshToken == rhs.refreshToken
 }
 
-extension OAuthAccessToken: Decodable {
-    public class func create(accessToken: String) -> String -> NSDate? -> String? -> OAuthAccessToken {
-        return
-            { tokenType in
-                { expiresAt in
-                    { refreshToken in
-                        OAuthAccessToken(accessToken: accessToken, tokenType: tokenType, expiresAt: expiresAt, refreshToken: refreshToken)
-                    }
-                }
+extension OAuthAccessToken {
+    public class func decode(_ json: [String: AnyObject]) -> OAuthAccessToken? {
+        func toNSDate(_ timeIntervalSinceNow: TimeInterval?) -> Date? {
+            return timeIntervalSinceNow.map { timeIntervalSinceNow in
+                return Date(timeIntervalSinceNow: timeIntervalSinceNow)
             }
-    }
-
-    public class func decode(json: JSON) -> Decoded<OAuthAccessToken> {
-        func toNSDate(timeIntervalSinceNow: NSTimeInterval?) -> Decoded<NSDate?> {
-            return pure(timeIntervalSinceNow.map { timeIntervalSinceNow in
-                return NSDate(timeIntervalSinceNow: timeIntervalSinceNow)
-            } ?? .None)
         }
 
-        return create
-            <^> json <| "access_token"
-            <*> json <| "token_type"
-            <*> (json <|? "expires_in").flatMap(toNSDate)
-            <*> json <|? "refresh_token"
+        guard let accessToken = json["access_token"] as? String,
+            let tokenType = json["token_type"] as? String else {
+            return nil
+        }
+
+        let expiresAt = (json["expires_in"] as? TimeInterval).flatMap(toNSDate)
+        let refreshToken = json["refresh_token"] as? String
+
+        return OAuthAccessToken(accessToken: accessToken, tokenType: tokenType,
+                                expiresAt: expiresAt, refreshToken: refreshToken)
     }
 
-    public class func decode(data: NSData) -> Decoded<OAuthAccessToken> {
-        let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
-        return Decoded<AnyObject>.fromOptional(json).flatMap(Argo.decode)
+    public class func decode(data: Data) -> OAuthAccessToken? {
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0)),
+            let jsonDictionary = json as? [String: AnyObject] else {
+                return nil
+        }
+
+        return decode(jsonDictionary)
     }
 }

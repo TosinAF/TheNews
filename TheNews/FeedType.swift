@@ -17,7 +17,7 @@ struct FeedColor {
 
 enum FeedType: Int {
     
-    case PH, DN, HN
+    case ph, dn, hn
     
     var title: String {
         let titles = ["PH", "DN", "HN"]
@@ -26,22 +26,22 @@ enum FeedType: Int {
     
     var filters: [String] {
         switch(self) {
-        case .PH:
+        case .ph:
             return ["TOP", "RECENT"]
-        case .DN:
+        case .dn:
             return ["TOP", "RECENT"]
-        case .HN:
+        case .hn:
             return ["TOP", "NEW", "SHOW", "ASK"]
         }
     }
     
     var colors: FeedColor {
         switch(self) {
-        case .PH:
+        case .ph:
             return FeedColor(Brand: ColorPalette.PH.Brand, NavBar: ColorPalette.PH.Brand, Light: ColorPalette.PH.Light)
-        case .DN:
+        case .dn:
             return FeedColor(Brand: ColorPalette.DN.Brand, NavBar: ColorPalette.DN.NavBar, Light: ColorPalette.DN.Light)
-        case .HN:
+        case .hn:
             return FeedColor(Brand: ColorPalette.HN.Brand, NavBar: ColorPalette.HN.NavBar, Light: ColorPalette.HN.Light)
         }
     }

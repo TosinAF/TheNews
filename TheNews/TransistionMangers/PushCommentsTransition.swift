@@ -15,17 +15,18 @@ class PushCommentsTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
     // MARK: UIViewControllerAnimatedTransitioning Methods
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return animationDuration
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
-        guard let containerView = transitionContext.containerView(),
-              let source = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey),
-              let destination = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as? CommentsViewController
+        guard let source = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from),
+              let destination = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) as? CommentsViewController
         
         else { fatalError("Some Initial Conditions are missing") }
+
+        let containerView = transitionContext.containerView
         
         containerView.addSubview(source.view)
         containerView.addSubview(destination.view)
@@ -37,29 +38,29 @@ class PushCommentsTransition: NSObject, UIViewControllerAnimatedTransitioning {
         destination.view.alpha = 0.0
         
         let destinationFrameAnim = getDestinationFrameAnim(finalDestinationFrame)
-        destination.view.layer.pop_addAnimation(destinationFrameAnim, forKey: "view.frame")
+        destination.view.layer.pop_add(destinationFrameAnim, forKey: "view.frame")
         
-        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
+        UIView.animate(withDuration: animationDuration, animations: { () -> Void in
             destination.view.alpha = 1.0
             destination.view.layer.mask = self.getMaskLayer(destination.view)
             
-            }) { (finished) -> Void in
+            }, completion: { (finished) -> Void in
                 transitionContext.completeTransition(true)
-        }
+        }) 
     }
     
     // MARK: Utility Methods
     
-    private func getDestinationFrameAnim(frame: CGRect) -> POPSpringAnimation {
+    fileprivate func getDestinationFrameAnim(_ frame: CGRect) -> POPSpringAnimation {
         
         let frameAnim = POPSpringAnimation(propertyNamed: kPOPViewFrame)
-        frameAnim.springBounciness = 1
-        frameAnim.springSpeed = 15
-        frameAnim.toValue = NSValue(CGRect: frame)
-        return frameAnim
+        frameAnim?.springBounciness = 1
+        frameAnim?.springSpeed = 15
+        frameAnim?.toValue = NSValue(cgRect: frame)
+        return frameAnim!
     }
     
-    private func getFramesForDestinationView(startingFrame: CGRect) -> (CGRect, CGRect) {
+    fileprivate func getFramesForDestinationView(_ startingFrame: CGRect) -> (CGRect, CGRect) {
     
         var initialFrame = startingFrame
         initialFrame.origin.y = startingFrame.height
@@ -71,15 +72,15 @@ class PushCommentsTransition: NSObject, UIViewControllerAnimatedTransitioning {
         return (initialFrame, finalFrame)
     }
     
-    private func getMaskLayer(view: UIView) -> CAShapeLayer {
+    fileprivate func getMaskLayer(_ view: UIView) -> CAShapeLayer {
         
         // Round Top Corners
-        let cornerRadii = CGSizeMake(7.0, 7.0)
-        let maskPath = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: [.TopLeft, .TopRight], cornerRadii: cornerRadii)
+        let cornerRadii = CGSize(width: 7.0, height: 7.0)
+        let maskPath = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: cornerRadii)
         
         let maskLayer = CAShapeLayer()
         maskLayer.frame = view.bounds
-        maskLayer.path = maskPath.CGPath
+        maskLayer.path = maskPath.cgPath
         return maskLayer
     }
 }

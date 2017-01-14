@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TZStackView
 import Cartography
 
 private let kVerticalSpacing = 5.0
@@ -27,7 +26,7 @@ final class FeedTableViewCell: UITableViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
-        label.textColor = .blackColor()
+        label.textColor = .black
         label.font = UIFont(name: "Montserrat", size: 15.0)
         return label
     }()
@@ -43,7 +42,7 @@ final class FeedTableViewCell: UITableViewCell {
         let button = CommentButton()
         button.layer.cornerRadius = 2.0
         button.backgroundColor = UIColor(red:0.969, green:0.969, blue:0.969, alpha: 1.0)
-        button.addTarget(self, action: "commentButtonTapped", forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(FeedTableViewCell.commentButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -59,9 +58,9 @@ final class FeedTableViewCell: UITableViewCell {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        selectionStyle = .None
-        layoutMargins = UIEdgeInsetsZero
-        backgroundColor = .whiteColor()
+        selectionStyle = .none
+        layoutMargins = UIEdgeInsets.zero
+        backgroundColor = .white
         
         setupConstraints()
     }
@@ -72,11 +71,11 @@ final class FeedTableViewCell: UITableViewCell {
     
     func setupConstraints() {
         
-        let infoStackView = TZStackView(arrangedSubviews: [titleLabel, detailLabel])
-        infoStackView.configure(distributon: .Fill, alignment: .Top, axis: .Vertical, spacing: 8.0)
+        let infoStackView = UIStackView(arrangedSubviews: [titleLabel, detailLabel])
+        infoStackView.configure(distributon: .fill, alignment: .top, axis: .vertical, spacing: 8.0)
         
-        let stackView = TZStackView(arrangedSubviews: [infoStackView, commentsButton])
-        stackView.configure(distributon: .Fill, alignment: .Center, axis: .Horizontal, spacing: 25.0)
+        let stackView = UIStackView(arrangedSubviews: [infoStackView, commentsButton])
+        stackView.configure(distributon: .fill, alignment: .center, axis: .horizontal, spacing: 25.0)
         
         contentView.addSubview(stackView)
         contentView.addSubview(borderView)

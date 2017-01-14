@@ -20,41 +20,49 @@ private let plugins = [NetworkLoggerPlugin(verbose: true, responseDataFormatter:
 let ProductHuntProvider = MoyaProvider<ProductHunt>(requestClosure: ProductHuntOAuthHelper.authenticateRequestClosure(), plugins: [])
 
 public enum ProductHunt {
-    case Posts
+    case posts
 }
 
 extension ProductHunt: TargetType {
-    
-    public var baseURL: NSURL {
-        return NSURL(string: PHAPIBaseURLString)!
+
+    public var baseURL: URL {
+        return URL(string: PHAPIBaseURLString)!
     }
     
     public var path: String {
         switch self {
-        case .Posts:
+        case .posts:
             return "/posts"
         }
     }
     
     public var method: Moya.Method {
-        return .GET
+        return .get
     }
     
-    public var parameters: [String: AnyObject]? {
+    public var parameters: [String: Any]? {
         switch self {
         default:
             return nil
         }
     }
+
+    public var task: Task {
+        return .request
+    }
+
+    public var parameterEncoding: ParameterEncoding {
+        return URLEncoding.default
+    }
     
-    public var sampleData: NSData {
-        return "[{\"name\": \"Repo Name\"}]".dataUsingEncoding(NSUTF8StringEncoding)!
+    public var sampleData: Data {
+        return "[{\"name\": \"Repo Name\"}]".data(using: String.Encoding.utf8)!
     }
 }
 
 class ProductHuntOAuthHelper {
     
-    static let tokenURL = NSURL(string: "\(PHAPIBaseURLString)/oauth/token")!
+    static let tokenURL = URL(string: "\(PHAPIBaseURLString)/oauth/token")!
     static let credentials = OAuthClientCredentials(id: PHAPIClientID, secret: PHAPIClientSecret)
     
     class func hasAccessToken() -> Bool {
@@ -62,16 +70,16 @@ class ProductHuntOAuthHelper {
         return oAuthService.hasAccessToken
     }
 
-    class func requestClientAccessToken(completion: ((Bool) -> Void)?) {
+    class func requestClientAccessToken(_ completion: ((Bool) -> Void)?) {
         
         let oAuthService = Heimdallr(tokenURL: tokenURL, credentials: credentials, accessTokenParser:ProductHuntOAuthHelper())
         
         oAuthService.requestAccessToken(grantType: "client_credentials", parameters: [:]) { (result) in
             switch result {
-            case .Success:
+            case .success:
                 print("Successfully Obtained Client Access Token")
                 completion?(true)
-            case .Failure(let error):
+            case .failure(let error):
                 print(error)
                 completion?(false)
             }
@@ -80,18 +88,18 @@ class ProductHuntOAuthHelper {
     
     class func authenticateRequestClosure() -> MoyaProvider<ProductHunt>.RequestClosure {
         
-        return { (endpoint: Endpoint<ProductHunt>, done: NSURLRequest -> Void) in
+        return { (endpoint: Endpoint<ProductHunt>, done: @escaping (Result<URLRequest, MoyaError>) -> Void) in
             
-            let request = endpoint.urlRequest
+            guard let request = endpoint.urlRequest else { return }
             let oAuthService = Heimdallr(tokenURL: tokenURL, credentials: credentials, accessTokenParser: ProductHuntOAuthHelper())
             
             let authRequestBlock = {
                 oAuthService.authenticateRequest(request) { result in
                     switch result {
-                    case .Success(let signedRequest):
-                        done(signedRequest)
-                    case .Failure(let error):
-                        print(error)
+                    case .success(let signedRequest):
+                        done(.success(signedRequest))
+                    case .failure(let error):
+                        done(.failure(MoyaError.underlying(error)))
                     }
                 }
             }
@@ -108,17 +116,15 @@ class ProductHuntOAuthHelper {
 }
 
 extension ProductHuntOAuthHelper: OAuthAccessTokenParser {
-    func parse(data: NSData) -> Result<OAuthAccessToken, NSError> {
-        
-        let decoded = OAuthAccessToken.decode(data)
-        
-        switch decoded {
-        case .Success(let token):
+
+    public func parse(data: Data) throws -> OAuthAccessToken {
+
+        if let token = OAuthAccessToken.decode(data: data) {
             let tokenCopy = token.copy(tokenType: "Bearer")
-            return .Success(tokenCopy)
-        case .Failure:
-            let error = NSError(domain: HeimdallrErrorDomain, code: HeimdallrErrorInvalidData, userInfo: nil)
-            return .Failure(error)
+            return tokenCopy
+        } else {
+            throw NSError(domain: HeimdallrErrorDomain, code: HeimdallrErrorInvalidData, userInfo: nil)
         }
     }
+
 }

@@ -1,56 +1,57 @@
 PODS:
-  - Alamofire (3.3.1)
-  - Argo (3.0.1)
-  - Cartography (0.6.0)
-  - EasyAnimation (1.0.2)
-  - Heimdallr (3.3.0):
-    - Heimdallr/Core (= 3.3.0)
-  - Heimdallr/Core (3.3.0):
-    - Argo (~> 3.0)
-    - Result (~> 2.0)
+  - Alamofire (4.2.0)
+  - Anchorage (3.0.0)
+  - Cartography (1.0.1)
+  - Heimdallr (3.5.1):
+    - Heimdallr/Core (= 3.5.1)
+  - Heimdallr/Core (3.5.1):
+    - Result (~> 3.0)
   - JTHamburgerButton (1.0.5)
-  - libHN (4.1.0)
-  - Moya (6.4.0):
-    - Moya/Core (= 6.4.0)
-  - Moya/Core (6.4.0):
-    - Alamofire (~> 3.0)
-    - Result (~> 2.0)
-  - pop (1.0.8)
-  - Result (2.0.0)
-  - Reveal-iOS-SDK (1.6.2)
-  - SwiftyJSON (2.3.2)
-  - TOWebViewController (2.2.4):
-    - TOWebViewController/Core (= 2.2.4)
-  - TOWebViewController/Core (2.2.4)
-  - TZStackView (1.1.0)
+  - libHN (4.2.0)
+  - Moya (8.0.0):
+    - Moya/Core (= 8.0.0)
+  - Moya/Core (8.0.0):
+    - Alamofire (~> 4.2.0)
+    - Result (~> 3.1.0)
+  - pop (1.0.9)
+  - Result (3.1.0)
+  - Reveal-SDK (5)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
-  - Cartography
-  - EasyAnimation
-  - Heimdallr (~> 3.2)
+  - Anchorage (= 3.0.0)
+  - Cartography (= 1.0.1)
+  - Heimdallr (from `https://github.com/marcelofabri/Heimdallr.swift.git`, branch `swift-3.0`)
   - JTHamburgerButton
   - libHN (~> 4.1)
-  - Moya
+  - Moya (= 8.0.0)
   - pop
-  - Reveal-iOS-SDK
-  - SwiftyJSON
-  - TOWebViewController (~> 2.2)
-  - TZStackView
+  - Reveal-SDK
+  - SwiftyJSON (= 3.1.4)
+
+EXTERNAL SOURCES:
+  Heimdallr:
+    :branch: swift-3.0
+    :git: https://github.com/marcelofabri/Heimdallr.swift.git
+
+CHECKOUT OPTIONS:
+  Heimdallr:
+    :commit: 213140048f6341516fcb3a4ae083a7bd83e2301b
+    :git: https://github.com/marcelofabri/Heimdallr.swift.git
 
 SPEC CHECKSUMS:
-  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
-  Argo: 22c5d62b7967020a641468c91dc9488bea9523b8
-  Cartography: 70af183a248547694a8cfaa6b989cb7e04589985
-  EasyAnimation: 9615e40f58aa7d8d6a67de66e0edda1903ffa990
-  Heimdallr: 47da8957bd089006ab14b3f8fcedd5d570035183
+  Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
+  Anchorage: 0b7244e31069ebc61a4e9611bc670feb7f24a3e2
+  Cartography: c1460e99395b824d9d75360b0382faeb0b33dcd7
+  Heimdallr: 8881bb8ef21dcd347fd1c8b783ae0dafe68a4297
   JTHamburgerButton: 9a41c7d051c72590a9d2c18416d84d1b912f12e3
-  libHN: ec0205556a35d760b5b6a7804699f67276d6633a
-  Moya: 4d526954c8afd79820991393d40d7d8af756ceee
-  pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
-  Result: 9e75e1111c774c6ac594e14907b15057053a7959
-  Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
-  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
-  TOWebViewController: f6b234d2be45dbf81d2a71a1f9480f8f3cc6501a
-  TZStackView: 513a7fd55ff559bb43c50096011e797a4e9a2a17
+  libHN: f0833967c6d6234deeb08962222d9e5b671fc4fb
+  Moya: 850a166ab8241bd1c1cea6dbe012e3a2ad62944a
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  Result: 4e3ed5995ed94d0cd6a09be9a431fce3f3624bbf
+  Reveal-SDK: 7e3945c0c3649106c3cc8923672ee545e25605c0
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: b241721787307d5bd02c119c5c1f0faa8b2640f4
+
+COCOAPODS: 1.2.0.rc.1

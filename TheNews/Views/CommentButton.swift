@@ -13,7 +13,7 @@ final class CommentButton: UIButton {
     
     lazy var countLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
+        label.textColor = UIColor.black.withAlphaComponent(0.8)
         label.text = "13"
         label.font = UIFont(name: "Montserrat", size: 13.0)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -21,9 +21,9 @@ final class CommentButton: UIButton {
     }()
     
     var iconImageView: UIImageView = {
-        let image = UIImage(named: "chat")?.imageWithRenderingMode(.AlwaysTemplate)
+        let image = UIImage(named: "chat")?.withRenderingMode(.alwaysTemplate)
         let imageView = UIImageView(image: image)
-        imageView.tintColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
+        imageView.tintColor = UIColor.black.withAlphaComponent(0.8)
         imageView.alpha = 0.8
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -31,7 +31,7 @@ final class CommentButton: UIButton {
     
     override init(frame: CGRect) {
         
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         
         addSubview(countLabel)
         addSubview(iconImageView)
@@ -43,12 +43,12 @@ final class CommentButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupConstraints() {
+    fileprivate func setupConstraints() {
         
-        let views = ["count": countLabel, "icon": iconImageView]
+        let views = ["count": countLabel, "icon": iconImageView] as [String : Any]
         let metrics = ["vMargin": 7]
         
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-vMargin-[count]-2-[icon]-vMargin-|", options: [], metrics: metrics, views: views))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-vMargin-[count]-2-[icon]-vMargin-|", options: [], metrics: metrics, views: views))
         
         constrain(countLabel, iconImageView) { countLabel, iconImageView in
             countLabel.centerX == countLabel.superview!.centerX

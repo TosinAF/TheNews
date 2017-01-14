@@ -8,10 +8,10 @@
 
 import Foundation
 
-public func JSONResponseDataFormatter(data: NSData) -> NSData {
+public func JSONResponseDataFormatter(_ data: Data) -> Data {
     do {
-        let dataAsJSON = try NSJSONSerialization.JSONObjectWithData(data, options: [])
-        let prettyData =  try NSJSONSerialization.dataWithJSONObject(dataAsJSON, options: .PrettyPrinted)
+        let dataAsJSON = try JSONSerialization.jsonObject(with: data, options: [])
+        let prettyData =  try JSONSerialization.data(withJSONObject: dataAsJSON, options: .prettyPrinted)
         return prettyData
     } catch {
         return data // fallback to original data if it cant be serialized

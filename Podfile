@@ -1,16 +1,28 @@
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, "8.0"
-use_frameworks!
-inhibit_all_warnings!
+source 'https://github.com/CocoaPods/Specs'
 
-pod 'pop'
-pod 'Moya'
-pod 'SwiftyJSON'
-pod 'TZStackView'
-pod 'Cartography'
-pod 'EasyAnimation'
-pod 'JTHamburgerButton'
-pod 'libHN', '~> 4.1'
-pod 'Heimdallr', '~> 3.2'
-pod 'TOWebViewController', '~> 2.2'
-pod 'Reveal-iOS-SDK', :configurations => ['Debug']
+use_frameworks!
+
+platform :ios, '10.0'
+
+def debug_pods
+    pod 'Reveal-SDK', :configurations => ['Debug']
+end
+
+def external_pods
+    pod 'pop'
+    pod 'Moya', '8.0.0'
+    pod 'SwiftyJSON', '3.1.4'
+    pod 'Cartography', '1.0.1'
+    pod 'Anchorage', '3.0.0'
+    pod 'Heimdallr', git: 'https://github.com/marcelofabri/Heimdallr.swift.git', branch: 'swift-3.0'
+    pod 'JTHamburgerButton'
+    pod 'libHN', '~> 4.1'
+
+end
+
+target 'TheNews' do
+    debug_pods
+    external_pods
+end
+
+inhibit_all_warnings!

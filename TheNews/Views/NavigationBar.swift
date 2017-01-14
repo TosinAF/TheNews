@@ -8,7 +8,6 @@
 
 import pop
 import UIKit
-import TZStackView
 import Cartography
 import JTHamburgerButton
 
@@ -29,29 +28,29 @@ class NavigationBar: UINavigationBar {
     var selectedIndex = 0 {
     
         willSet(newIndex) {
-            buttons[newIndex].selected = true
+            buttons[newIndex].isSelected = true
             moveIndicatorToButton(atIndex: newIndex)
         }
         
         didSet(oldIndex) {
-            buttons[oldIndex].selected = false
+            buttons[oldIndex].isSelected = false
         }
     }
     
     // MARK: Views
     
     lazy var menuToggle: JTHamburgerButton = {
-        let frame = CGRectMake(0, 0, kMenuButtonSize, kMenuButtonSize)
+        let frame = CGRect(x: 0, y: 0, width: kMenuButtonSize, height: kMenuButtonSize)
         let toggle = JTHamburgerButton(frame: frame)
-        toggle.lineColor = .whiteColor()
+        toggle.lineColor = .white
         toggle.configure(lineWidth: 25.0, lineHeight: 1.0, lineSpacing: 7.0)
         toggle.translatesAutoresizingMaskIntoConstraints = false
         return toggle
     }()
     
-    lazy var titleView: TZStackView = {
-        let stackView = TZStackView(arrangedSubviews: self.buttons)
-        stackView.configure(distributon: .EqualSpacing, alignment: .Center, axis: .Horizontal, spacing: kButtonSpacing)
+    lazy var titleView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: self.buttons)
+        stackView.configure(distributon: .equalSpacing, alignment: .center, axis: .horizontal, spacing: kButtonSpacing)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -59,7 +58,7 @@ class NavigationBar: UINavigationBar {
     lazy var indicatorView: UIView = {
         let indicatorView = UIView()
         indicatorView.layer.cornerRadius = kIndicatorViewSize / 2
-        indicatorView.backgroundColor = .whiteColor()
+        indicatorView.backgroundColor = .white
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
         return indicatorView
     }()
@@ -69,7 +68,7 @@ class NavigationBar: UINavigationBar {
     init(titles: [String]) {
         
         self.buttons = titles.map { ButtonFactory.buttonFromTemplate($0) }
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         
         configureButtons()
         
@@ -78,7 +77,7 @@ class NavigationBar: UINavigationBar {
         addSubview(indicatorView)
 
         setupConstraints()
-        buttons[selectedIndex].selected = true
+        buttons[selectedIndex].isSelected = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -113,7 +112,7 @@ class NavigationBar: UINavigationBar {
     
     // MARK: Actions
     
-    func onTap(sender: UIButton) {
+    func onTap(_ sender: UIButton) {
         
         if selectedIndex == sender.tag {
             return
@@ -129,7 +128,7 @@ class NavigationBar: UINavigationBar {
         for index in 0..<buttons.count {
             let button = buttons[index]
             addSubview(button)
-            button.addTarget(self, action: "onTap:", forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: #selector(NavigationBar.onTap(_:)), for: .touchUpInside)
             button.tag = index
         }
     }
@@ -138,10 +137,10 @@ class NavigationBar: UINavigationBar {
         
         let offset = buttons[index].center.x
         let indicatorAnim = POPSpringAnimation(propertyNamed: kPOPLayoutConstraintConstant)
-        indicatorAnim.springBounciness = 1
-        indicatorAnim.springSpeed = 1
-        indicatorAnim.toValue = offset
-        indicatorViewCenterXConstraint.pop_addAnimation(indicatorAnim, forKey: "constant")
+        indicatorAnim?.springBounciness = 1
+        indicatorAnim?.springSpeed = 1
+        indicatorAnim?.toValue = offset
+        indicatorViewCenterXConstraint.pop_add(indicatorAnim, forKey: "constant")
     }
 }
 
@@ -149,13 +148,13 @@ class NavigationBar: UINavigationBar {
 
 private class ButtonFactory {
     
-    class func buttonFromTemplate(title: String) -> UIButton {
+    class func buttonFromTemplate(_ title: String) -> UIButton {
         
-        let button = UIButton(frame: CGRectZero)
-        button.setTitle(title, forState: .Normal)
+        let button = UIButton(frame: CGRect.zero)
+        button.setTitle(title, for: UIControlState())
         button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 15.0)
-        button.setTitleColor(UIColor(white: 1.0, alpha: 0.6), forState: .Normal)
-        button.setTitleColor(UIColor(white: 1.0, alpha: 1.0), forState: .Selected)
+        button.setTitleColor(UIColor(white: 1.0, alpha: 0.6), for: UIControlState())
+        button.setTitleColor(UIColor(white: 1.0, alpha: 1.0), for: .selected)
         return button
     }
 }

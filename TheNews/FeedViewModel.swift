@@ -20,7 +20,7 @@ class FeedViewModel {
         return posts.count
     }
     
-    func postAtIndex(index: Int) -> Post {
+    func postAtIndex(_ index: Int) -> Post {
         return posts[index]
     }
     
@@ -32,20 +32,20 @@ class FeedViewModel {
         
         switch self.type {
         
-        case .PH, .HN:
+        case .ph, .hn:
             loadPostsFromProductHunt()
         
-        case .DN:
+        case .dn:
             loadPostsFromDesignerNews()
         }
     }
     
-    private func loadPostsFromProductHunt() {
+    fileprivate func loadPostsFromProductHunt() {
         
-        ProductHuntProvider.request(.Posts) { (result) in
+        ProductHuntProvider.request(.posts) { (result) in
             switch result {
                 
-            case let .Success(moyaResponse):
+            case let .success(moyaResponse):
                 
                 let data = moyaResponse.data
                 let json = JSON(data: data)
@@ -53,26 +53,26 @@ class FeedViewModel {
                 var posts = [Post]()
                 for (_, story): (String, JSON) in json["posts"] {
                     let post = Post()
-                    DataMapper.map(.PH, post: post, data: story)
+                    DataMapper.map(.ph, post: post, data: story)
                     posts.append(post)
                 }
                 
                 self.posts = posts
                 self.completionBlock?()
                 
-            case .Failure(let error):
+            case .failure(let error):
                 print(error)
                 break
             }
         }
     }
     
-    private func loadPostsFromDesignerNews() {
+    fileprivate func loadPostsFromDesignerNews() {
         
-        DesignerNewsProvider.request(.Stories) { (result) in
+        DesignerNewsProvider.request(.stories) { (result) in
             switch result {
                 
-            case let .Success(moyaResponse):
+            case let .success(moyaResponse):
                 
                 let data = moyaResponse.data
                 let json = JSON(data: data)
@@ -80,14 +80,14 @@ class FeedViewModel {
                 var posts = [Post]()
                 for (_, story): (String, JSON) in json["stories"] {
                     let post = Post()
-                    DataMapper.map(.DN, post: post, data: story)
+                    DataMapper.map(.dn, post: post, data: story)
                     posts.append(post)
                 }
                 
                 self.posts = posts
                 self.completionBlock?()
                 
-            case .Failure(let error):
+            case .failure(let error):
                 print(error)
                 break
             }

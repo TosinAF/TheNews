@@ -22,7 +22,7 @@ class CommentsViewController: UIViewController {
     let comments = [Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph, Lorem.paragraph]
 
     lazy var headerView: FeedTableViewCell = {
-        let headerView = FeedTableViewCell(style: .Default, reuseIdentifier: "feed")
+        let headerView = FeedTableViewCell(style: .default, reuseIdentifier: "feed")
         headerView.titleLabel.text = self.post.title
         headerView.detailLabel.text = self.post.detailText
         headerView.borderView.alpha = 1.0
@@ -36,23 +36,23 @@ class CommentsViewController: UIViewController {
         tableView.dataSource = self
         // FIXME: Calculate Row Height Manually
         tableView.estimatedRowHeight = 100
-        tableView.layoutMargins = UIEdgeInsetsZero
-        tableView.separatorInset = UIEdgeInsetsZero
+        tableView.layoutMargins = UIEdgeInsets.zero
+        tableView.separatorInset = UIEdgeInsets.zero
         tableView.separatorColor = ColorPalette.Grey.Light
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.registerClass(CommentTableViewCell.self, forCellReuseIdentifier: "comment")
+        tableView.register(CommentTableViewCell.self, forCellReuseIdentifier: "comment")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
     lazy var closeButton: JTHamburgerButton = {
         let button = JTHamburgerButton(frame: .zero)
-        button.currentMode = .Cross
-        button.lineColor = .whiteColor()
+        button.currentMode = .cross
+        button.lineColor = .white
         button.backgroundColor = self.type.colors.Light
         button.layer.cornerRadius = kCloseButtonSize / 2
         button.configure(lineWidth: 25.0, lineHeight: 1.0, lineSpacing: 7.0)
-        button.addTarget(self, action: "dismiss", forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(CommentsViewController.dismiss as (CommentsViewController) -> () -> ()), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -67,7 +67,7 @@ class CommentsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
@@ -76,7 +76,7 @@ class CommentsViewController: UIViewController {
         
         super.viewDidLoad()
         
-        view.backgroundColor = .whiteColor()
+        view.backgroundColor = .white
 
         view.addSubview(headerView)
         view.addSubview(tableView)
@@ -116,7 +116,7 @@ class CommentsViewController: UIViewController {
             navController.setPopAnimationToNotInteractive()
         }
         
-        navigationController?.popViewControllerAnimated(true)
+        _ = navigationController?.popViewController(animated: true)
     }
 }
 
@@ -124,12 +124,12 @@ class CommentsViewController: UIViewController {
 
 extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return comments.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("comment", forIndexPath: indexPath) as! CommentTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "comment", for: indexPath) as! CommentTableViewCell
         cell.textView.text = comments[indexPath.row]
         cell.authorTextView.textColor = self.type.colors.Light
         return cell
@@ -140,10 +140,10 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension CommentsViewController: UIScrollViewDelegate {
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        let isHidden = scrollView.panGestureRecognizer.translationInView(scrollView).y < 0
-        UIView.animateWithDuration(0.2, animations: { () -> Void in
+        let isHidden = scrollView.panGestureRecognizer.translation(in: scrollView).y < 0
+        UIView.animate(withDuration: 0.2, animations: { () -> Void in
             self.closeButton.alpha = isHidden ? 0.0 : 1.0
         })
     }

@@ -16,35 +16,43 @@ private let plugins = [NetworkLoggerPlugin(verbose: true, responseDataFormatter:
 let DesignerNewsProvider = MoyaProvider<DesignerNews>(plugins: [])
 
 public enum DesignerNews {
-    case Stories
+    case stories
 }
 
 extension DesignerNews: TargetType {
     
-    public var baseURL: NSURL {
-        return NSURL(string: DNAPIBaseURLString)!
+    public var baseURL: URL {
+        return URL(string: DNAPIBaseURLString)!
     }
     
     public var path: String {
         switch self {
-        case .Stories:
+        case .stories:
             return "/stories"
         }
     }
     
     public var method: Moya.Method {
-        return .GET
+        return .get
     }
     
-    public var parameters: [String: AnyObject]? {
+    public var parameters: [String: Any]? {
         switch self {
         default:
-            return ["client_id": DNAPIClientID]
+            return ["client_id": DNAPIClientID as Any]
         }
     }
+
+    public var task: Task {
+        return .request
+    }
+
+    public var parameterEncoding: ParameterEncoding {
+        return URLEncoding.default
+    }
     
-    public var sampleData: NSData {
-        return "[{\"name\": \"Repo Name\"}]".dataUsingEncoding(NSUTF8StringEncoding)!
+    public var sampleData: Data {
+        return "[{\"name\": \"Repo Name\"}]".data(using: String.Encoding.utf8)!
     }
 }
 

@@ -14,34 +14,34 @@ class HomeViewController: UIViewController {
     // MARK: Properties
     
     let vcs: [FeedType: UIViewController] = [
-        .PH: FeedViewController(type: .PH),
-        .DN: FeedViewController(type: .DN),
-        .HN: FeedViewController(type: .HN)
+        .ph: FeedViewController(type: .ph),
+        .dn: FeedViewController(type: .dn),
+        .hn: FeedViewController(type: .hn)
     ]
     
-    var currentFeedType: FeedType = .DN
+    var currentFeedType: FeedType = .dn
     
     // MARK: Views
     
     lazy var pageViewController: UIPageViewController = {
-        guard let initialVC = self.vcs[.DN]
+        guard let initialVC = self.vcs[.dn]
             else { fatalError("View Controllers have not been properly configured ") }
-        let pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+        let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         pageViewController.delegate = self
         pageViewController.dataSource = self
         pageViewController.view.backgroundColor = ColorPalette.Grey.Light
-        pageViewController.setViewControllers([initialVC], direction: .Forward, animated: false, completion: nil)
+        pageViewController.setViewControllers([initialVC], direction: .forward, animated: false, completion: nil)
         pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
         return pageViewController
     }()
     
     // MARK: View Lifecycle
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
         
-        edgesForExtendedLayout = .None
+        edgesForExtendedLayout = UIRectEdge()
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
@@ -49,7 +49,7 @@ class HomeViewController: UIViewController {
         
         super.viewDidLoad()
 
-        pageViewController.didMoveToParentViewController(self)
+        pageViewController.didMove(toParentViewController: self)
         addChildViewController(pageViewController)
         view.addSubview(pageViewController.view)
         
@@ -70,32 +70,32 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         guard let vc = viewController as? Feed
             else { fatalError("Topmost VC does not conform to Feed Protocol") }
         
         switch (vc.type) {
-        case .PH:
+        case .ph:
             return nil
-        case .DN:
-            return vcs[.PH]
-        case .HN:
-            return vcs[.DN]
+        case .dn:
+            return vcs[.ph]
+        case .hn:
+            return vcs[.dn]
         }
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
         guard let vc = viewController as? Feed
             else { fatalError("Topmost VC does not conform to Feed Protocol") }
         
         switch (vc.type) {
-        case .PH:
-            return vcs[.DN]
-        case .DN:
-            return vcs[.HN]
-        case .HN:
+        case .ph:
+            return vcs[.dn]
+        case .dn:
+            return vcs[.hn]
+        case .hn:
             return nil
         }
     }

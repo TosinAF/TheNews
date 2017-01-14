@@ -29,10 +29,10 @@ class FeedViewController: UIViewController, Feed {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.layoutMargins = UIEdgeInsetsZero
-        tableView.separatorInset = UIEdgeInsetsZero
+        tableView.layoutMargins = UIEdgeInsets.zero
+        tableView.separatorInset = UIEdgeInsets.zero
         tableView.separatorColor = ColorPalette.Grey.Light
-        tableView.registerClass(FeedTableViewCell.self, forCellReuseIdentifier: "feed")
+        tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feed")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -47,10 +47,10 @@ class FeedViewController: UIViewController, Feed {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
+        UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
     }
     
     override func viewDidLoad() {
@@ -88,16 +88,16 @@ class FeedViewController: UIViewController, Feed {
 
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfPosts()
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("feed", forIndexPath: indexPath) as! FeedTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "feed", for: indexPath) as! FeedTableViewCell
         
         let post = viewModel.postAtIndex(indexPath.row)
         cell.titleLabel.text = post.title
@@ -111,29 +111,15 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let post = viewModel.postAtIndex(indexPath.row)
-        let url = NSURL(string: post.url)!
-        
-        if #available(iOS 9.0, *) {
+        let url = URL(string: post.url)!
             
-            let vc = SafariViewController(URL: url)
-            vc.delegate = self
-            vc.view.tintColor = type.colors.Brand
-            navigationController?.pushViewController(vc, animated: true)
-            
-        } else {
-            
-            let vc = WebViewController(URL: url)
-            navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-}
+        let vc = SafariViewController(url: url)
+        //vc.view.tintColor = type.colors.Brand
+        vc.preferredBarTintColor = type.colors.Brand
+        vc.preferredControlTintColor = UIColor.white
+        present(vc, animated: true, completion: nil)
 
-@available(iOS 9.0, *)
-extension FeedViewController: SFSafariViewControllerDelegate {
-
-    func safariViewControllerDidFinish(controller: SFSafariViewController) {
-        navigationController?.popViewControllerAnimated(true)
     }
 }

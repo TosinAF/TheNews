@@ -10,50 +10,50 @@ import UIKit
 
 private let kInteractiveAnimationThreshold: CGFloat = 0.5
 
-public class NavigationController: UINavigationController {
+open class NavigationController: UINavigationController {
     
-    private var popAnimationIsInteractive = true
-    private var interactivePopTransition: UIPercentDrivenInteractiveTransition?
+    fileprivate var popAnimationIsInteractive = true
+    fileprivate var interactivePopTransition: UIPercentDrivenInteractiveTransition?
     
-    lazy var panGesture: UIPanGestureRecognizer = {
-        let panGesture = UIPanGestureRecognizer(target: self, action: "handlePan:")
+    let panGesture: UIPanGestureRecognizer = {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(NavigationController.handlePan(_:)))
         return panGesture
     }()
     
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
     }
     
     // MARK: Gesture Recognizer Actions
     
-    public func handlePan(recognizer: UIPanGestureRecognizer) {
+    open func handlePan(_ recognizer: UIPanGestureRecognizer) {
         
         guard let recognizerView = recognizer.view
             else { fatalError("Gesture Recognizer should have a view") }
         
-        let progress = recognizer.translationInView(recognizerView).y / CGRectGetHeight(recognizerView.bounds)
+        let progress = recognizer.translation(in: recognizerView).y / recognizerView.bounds.height
         
-        switch (recognizer.state) {
+        switch recognizer.state {
             
-        case .Began:
+        case .began:
             popAnimationIsInteractive = true
             interactivePopTransition = UIPercentDrivenInteractiveTransition()
-            self.popViewControllerAnimated(true)
+            self.popViewController(animated: true)
             
-        case .Changed:
-            interactivePopTransition?.updateInteractiveTransition(progress)
+        case .changed:
+            interactivePopTransition?.update(progress)
             
-        case .Ended:
+        case .ended:
             if progress > kInteractiveAnimationThreshold {
-                interactivePopTransition?.finishInteractiveTransition()
+                interactivePopTransition?.finish()
             } else {
-                interactivePopTransition?.cancelInteractiveTransition()
+                interactivePopTransition?.cancel()
             }
             interactivePopTransition = nil
             
         default:
-            interactivePopTransition?.cancelInteractiveTransition()
+            interactivePopTransition?.cancel()
         }
     }
     
@@ -68,27 +68,23 @@ public class NavigationController: UINavigationController {
 
 extension NavigationController: UINavigationControllerDelegate {
     
-    public func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation,
-        fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation,
+        from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
-        if #available(iOS 9.0, *) {
-            if fromVC.dynamicType === SafariViewController.self || toVC.dynamicType === SafariViewController.self {
-                return nil
-            }
-        } else {
-            if fromVC.dynamicType === WebViewController.self || toVC.dynamicType === WebViewController.self {
-                return nil
-            }
+
+        if type(of: fromVC) === SafariViewController.self || type(of: toVC) === SafariViewController.self {
+            return nil
         }
+
             
-        if (operation == .Push) {
+        if (operation == .push) {
             return PushCommentsTransition()
         } else {
             return PopCommentsTransistion(isInteractive: popAnimationIsInteractive)
         }
     }
     
-    public func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    public func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         
         return interactivePopTransition
     }

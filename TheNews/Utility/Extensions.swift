@@ -6,15 +6,13 @@
 //  Copyright © 2015 Tosin Afolabi. All rights reserved.
 //
 
-// MARK: - Extension+TZStackView
+// MARK: - Extension+UIStackView
 
-import TZStackView
 import SafariServices
-import TOWebViewController
 
-public extension TZStackView {
+public extension UIStackView {
     
-    public func configure(distributon distribution: TZStackViewDistribution, alignment: TZStackViewAlignment, axis: UILayoutConstraintAxis, spacing: CGFloat) {
+    public func configure(distributon distribution: UIStackViewDistribution, alignment: UIStackViewAlignment, axis: UILayoutConstraintAxis, spacing: CGFloat) {
         self.axis = axis
         self.alignment = alignment
         self.distribution = distribution
@@ -28,7 +26,7 @@ import JTHamburgerButton
 
 public extension JTHamburgerButton {
     
-    func configure(lineWidth lineWidth: CGFloat, lineHeight: CGFloat, lineSpacing: CGFloat) {
+    func configure(lineWidth: CGFloat, lineHeight: CGFloat, lineSpacing: CGFloat) {
         self.lineWidth = lineWidth
         self.lineHeight = lineHeight
         self.lineSpacing = lineSpacing
@@ -41,19 +39,8 @@ public extension JTHamburgerButton {
 @available(iOS 9.0, *)
 class SafariViewController: SFSafariViewController {
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: false)
-    }
-}
-
-// MARK: - Extension+TOWebViewController
-
-class WebViewController: TOWebViewController {
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: false)
+        //UIApplication.shared.setStatusBarStyle(.default, animated: false)
     }
 }

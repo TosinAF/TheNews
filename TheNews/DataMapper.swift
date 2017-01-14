@@ -10,17 +10,18 @@ import SwiftyJSON
 
 class DataMapper {
     
-    class func map(type: FeedType, post: Post, data: JSON) {
+    class func map(_ type: FeedType, post: Post, data: JSON) {
         switch type {
-        case .PH, .HN:
+        case .ph, .hn:
             mapForPH(post, data: data)
         
-        case .DN:
+        case .dn:
+            print(data)
             mapForDN(post, data: data)
         }
     }
     
-    class func mapForDN(post: Post, data: JSON) {
+    class func mapForDN(_ post: Post, data: JSON) {
         post.id = data["id"].stringValue
         post.title = data["title"].stringValue
         post.author = data["user_display_name"].stringValue
@@ -29,7 +30,7 @@ class DataMapper {
         post.url = data["url"].stringValue
     }
     
-    class func mapForPH(post: Post, data: JSON) {
+    class func mapForPH(_ post: Post, data: JSON) {
         post.id = data["id"].stringValue
         post.title = "\(data["name"]): \(data["tagline"])"
         post.author = data["user"]["name"].stringValue
